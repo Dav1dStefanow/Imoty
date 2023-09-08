@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "x81ReYeZV4OMwbxVMZFZPZ76hv7CWrJmCwSWmcidGunVRtu/K8ubVVO0WHtrn8jZj69Ie7ji9hz4vxU03hr2ag==",
+  "success": true,
+  "projectFilePath": "D:\\Repositories\\Imoty\\Imoty\\Web\\Imoty.Web.Infrastructure\\Imoty.Web.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Acer\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.435\\stylecop.analyzers.1.2.0-beta.435.nupkg.sha512",
+    "C:\\Users\\Acer\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.435\\stylecop.analyzers.unstable.1.2.0.435.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "5bzMDd69gPaXXJNXn9WdHzaGmCP6J+004/I2y8X3o9ceOspHsx3vv/ELwF9Dv2AfAWIoAeVnfcQVWFPzL2e4Ug==",
+  "success": true,
+  "projectFilePath": "D:\\Repositories\\Imoty\\Imoty\\Data\\Imoty.Data.Common\\Imoty.Data.Common.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Acer\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.435\\stylecop.analyzers.1.2.0-beta.435.nupkg.sha512",
+    "C:\\Users\\Acer\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.435\\stylecop.analyzers.unstable.1.2.0.435.nupkg.sha512",
+    "C:\\Users\\Acer\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
