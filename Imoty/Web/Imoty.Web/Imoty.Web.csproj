@@ -40,4 +40,11 @@
     <ProjectReference Include="..\Imoty.Web.Infrastructure\Imoty.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\Imoty.Web.ViewModels\Imoty.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Home\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
