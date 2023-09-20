@@ -343,14 +343,14 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-# Backup folder for Package Reference Convert tool in Visual Studio 2017
+# Backup folder for Package Reference Convert tool in Visual Studio 2022
 MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
 # Custom ignores
-**/Web/MovieDeck.Web/appsettings.Production.json
+**/Web/Imoty.Web/appsettings.Production.json
 **/wwwroot/lib
 *.min.css
 *.min.js
