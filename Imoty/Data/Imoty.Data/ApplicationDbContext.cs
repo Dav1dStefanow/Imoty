@@ -8,7 +8,7 @@
 
     using Imoty.Data.Common.Models;
     using Imoty.Data.Models;
-
+    using Imoty.Data.Models.ImageModels;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +24,27 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Apartment> Apartments { get; set; }
+
+        public DbSet<ApartmentImage> ApartmentImages { get; set; }
+
+        public DbSet<House> Houses { get; set; }
+
+        public DbSet<HouseImage> HouseImages { get; set; }
+
+        public DbSet<BusinesStore> BusinesStores { get; set; }
+
+        public DbSet<BusinesStoreImage> BusinesStoreImages { get; set; }
+
+        public DbSet<Field> Fields { get; set; }
+
+        public DbSet<FieldImage> FieldImages { get; set; }
+
+        public DbSet<Warehouse> Warehouses { get; set; }
+
+        public DbSet<WarehouseImage> WarehouseImages { get; set; }
+
+        public DbSet<Construction> Constructions { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

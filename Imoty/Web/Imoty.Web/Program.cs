@@ -8,7 +8,6 @@
     using Imoty.Data.Models;
     using Imoty.Data.Repositories;
     using Imoty.Data.Seeding;
-    using Imoty.Services.Data;
     using Imoty.Services.Mapping;
     using Imoty.Services.Messaging;
     using Imoty.Web.ViewModels;
@@ -64,7 +63,6 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
         }
 
         private static void Configure(WebApplication app)
