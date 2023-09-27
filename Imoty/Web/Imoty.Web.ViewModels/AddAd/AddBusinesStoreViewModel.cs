@@ -1,5 +1,6 @@
 ﻿namespace Imoty.Web.ViewModels.AddAd
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class AddBusinesStoreViewModel

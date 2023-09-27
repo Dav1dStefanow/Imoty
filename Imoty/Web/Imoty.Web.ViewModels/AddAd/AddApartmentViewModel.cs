@@ -8,7 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class AddApartmentViewModel
+    public class AddApartmentViewModel : IValidatableObject
     {
         [Required]
         [MaxLength(50, ErrorMessage = "City/Village name can't be more than 50 digits.")]
@@ -59,5 +59,18 @@
          "[A-Z][a-z]+",
          ErrorMessage = "Construction name has to start with upper case letter.")]
         public string Construction { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (this.TotalFloors < this.Floor)
+            {
+                yield return new ValidationResult("Total floors can't be less than the floor yuor apartment is.");
+            }
+
+            if (this.BathRooms > this.BedRooms)
+            {
+                yield return new ValidationResult("There are no apartments with more bathrooms than bedrooms.");
+            }
+        }
     }
 }

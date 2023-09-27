@@ -1,8 +1,9 @@
 ﻿namespace Imoty.Web.ViewModels.AddAd
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class AddHouseViewModel
+    public class AddHouseViewModel : IValidatableObject
     {
         [Required]
         [MaxLength(50, ErrorMessage = "Name can't be more than 50 digits.")]
@@ -61,5 +62,13 @@
            "[A-Z][a-z]+",
            ErrorMessage = "Construction name has to start with upper case letter.")]
         public string Construction { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+           if (this.BuiltUpArea > this.SquareMeters)
+            {
+                yield return new ValidationResult("Square meters of the property has to have some back yard space.");
+            }
+        }
     }
 }
