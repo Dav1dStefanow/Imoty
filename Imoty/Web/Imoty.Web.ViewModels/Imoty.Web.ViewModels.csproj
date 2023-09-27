@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Services\Imoty.Services.Mapping\Imoty.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Home\" />
+  </ItemGroup>
+
 </Project>

@@ -21,7 +21,13 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Imoty.Data.Common\Imoty.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\Imoty.Data.Models\Imoty.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\Imoty.Data\Imoty.Data.csproj" />
+    <ProjectReference Include="..\..\Web\Imoty.Web.ViewModels\Imoty.Web.ViewModels.csproj" />
     <ProjectReference Include="..\Imoty.Services.Mapping\Imoty.Services.Mapping.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

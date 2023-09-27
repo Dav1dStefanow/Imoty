@@ -5,42 +5,28 @@
     using System.Linq;
 
     using Imoty.Data;
+    using Imoty.Data.Common.Repositories;
+    using Imoty.Data.Models;
+    using Imoty.Data.Models.ImageModels;
+    using Imoty.Services.Data;
     using Imoty.Web.ViewModels;
-    using Imoty.Web.ViewModels.Administration.Dashboard;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     public class HomeController : BaseController
     {
+        private readonly IAddApartmentService addPropertyService;
         private readonly ApplicationDbContext dbContext;
 
-        public HomeController(ApplicationDbContext dbContext)
+        public HomeController(
+            IAddApartmentService addPropertyService,
+            ApplicationDbContext dbContext)
         {
+            this.addPropertyService = addPropertyService;
             this.dbContext = dbContext;
         }
 
         public IActionResult Index()
-        {
-            var model = new IndexViewModelIntro()
-            {
-                Year = DateTime.UtcNow.Year,
-                Date = DateTime.UtcNow,
-            };
-
-            return this.View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Index(IndexViewModelIntro input)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View();
-            }
-
-            return this.RedirectToAction("ThankYou");
-        }
-
-        public IActionResult ThankYou()
         {
             return this.View();
         }
@@ -50,7 +36,7 @@
             return this.View();
         }
 
-        public IActionResult AddAd()
+        public IActionResult ThankYou()
         {
             return this.View();
         }
