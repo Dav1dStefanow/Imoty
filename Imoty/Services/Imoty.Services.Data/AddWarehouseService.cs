@@ -31,7 +31,7 @@
             this.districtValidationService = districtValidationService;
         }
 
-        public async Task AddWarehouseAsync(AddWarehouseViewModel viewModel)
+        public async Task AddWarehouseAsync(AddWarehouseViewModel viewModel, string userId)
         {
             Construction construction = this.costructionValidationService.ValidateConstruction(viewModel);
 
@@ -48,6 +48,7 @@
                 Price = viewModel.Price,
                 Description = viewModel.Description,
                 SquareMeters = viewModel.SquareMeters,
+                AddedByUserId = userId,
             };
 
             await this.warehousesRepository.AddAsync(input);

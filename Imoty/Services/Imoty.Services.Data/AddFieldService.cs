@@ -27,7 +27,7 @@
             this.districtValidationService = districtValidationService;
         }
 
-        public async Task AddFieldAsync(AddFieldViewModel viewModel)
+        public async Task AddFieldAsync(AddFieldViewModel viewModel, string userId)
         {
             Town town = this.townValidationService.ValidateTown(viewModel);
 
@@ -41,6 +41,7 @@
                 Price = viewModel.Price,
                 Description = viewModel.Description,
                 SquareMeters = viewModel.SquareMeters,
+                AddedByUserId = userId,
             };
 
             await this.fieldsRepository.AddAsync(input);

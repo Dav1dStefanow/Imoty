@@ -12,6 +12,6 @@
 
     public interface IAddApartmentService
     {
-        Task AddApartmentAsync(AddApartmentViewModel viewModel);
+        Task AddApartmentAsync(AddApartmentViewModel viewModel, string userId);
     }
 }

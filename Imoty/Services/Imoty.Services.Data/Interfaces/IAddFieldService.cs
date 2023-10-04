@@ -6,6 +6,6 @@
 
     public interface IAddFieldService
     {
-        Task AddFieldAsync(AddFieldViewModel viewModel);
+        Task AddFieldAsync(AddFieldViewModel viewModel, string userId);
     }
 }

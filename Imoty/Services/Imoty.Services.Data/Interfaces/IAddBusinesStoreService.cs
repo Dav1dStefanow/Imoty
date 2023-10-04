@@ -5,6 +5,6 @@
 
     public interface IAddBusinesStoreService
     {
-        Task AddBusinesStoreAsync(AddBusinesStoreViewModel viewModel);
+        Task AddBusinesStoreAsync(AddBusinesStoreViewModel viewModel, string userId);
     }
 }

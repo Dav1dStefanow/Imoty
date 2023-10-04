@@ -6,6 +6,6 @@
 
     public interface IAddWarehouseService
     {
-        Task AddWarehouseAsync(AddWarehouseViewModel viewModel);
+        Task AddWarehouseAsync(AddWarehouseViewModel viewModel, string userId);
     }
 }

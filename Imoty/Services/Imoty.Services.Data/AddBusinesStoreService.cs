@@ -30,7 +30,7 @@
             this.districtValidationService = districtValidationService;
         }
 
-        public async Task AddBusinesStoreAsync(AddBusinesStoreViewModel viewModel)
+        public async Task AddBusinesStoreAsync(AddBusinesStoreViewModel viewModel, string userId)
         {
             Construction construction = this.costructionValidationService.ValidateConstruction(viewModel);
 
@@ -49,6 +49,7 @@
                 Price = viewModel.Price,
                 Description = viewModel.Description,
                 SquareMeters = viewModel.SquareMeters,
+                AddedByUserId = userId,
             };
 
             await this.businesStoresRepository.AddAsync(input);
