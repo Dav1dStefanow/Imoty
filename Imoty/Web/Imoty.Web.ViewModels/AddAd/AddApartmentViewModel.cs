@@ -10,16 +10,16 @@
 
     public class AddApartmentViewModel : IValidatableObject
     {
-        // [RegularExpression(
-        //   "[A-Z][a-z]+",
-        //   ErrorMessage = "Type has to start with upper case letter.")]
+        [RegularExpression(
+          "[A-Za-z-\\s]+",
+          ErrorMessage = "Type has to start with upper case letter.")]
         [Required]
         [MaxLength(50, ErrorMessage = "Type can't be more than 50 digits.")]
         [MinLength(4, ErrorMessage = "Type has to be at least 4 digits long.")]
         public string Type { get; set; }
 
         [RegularExpression(
-          "[A-Z][a-z]+",
+          "[A-Za-z-\\s]+",
           ErrorMessage = "Town name has to start with upper case letter.")]
         [Required]
         [MaxLength(50, ErrorMessage = "Town name can't be more than 50 digits.")]
