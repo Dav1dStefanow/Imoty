@@ -15,15 +15,8 @@
 
     public class HomeController : BaseController
     {
-        private readonly IAddApartmentService addPropertyService;
-        private readonly ApplicationDbContext dbContext;
-
-        public HomeController(
-            IAddApartmentService addPropertyService,
-            ApplicationDbContext dbContext)
+        public HomeController()
         {
-            this.addPropertyService = addPropertyService;
-            this.dbContext = dbContext;
         }
 
         public IActionResult Index()

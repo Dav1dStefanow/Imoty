@@ -16,11 +16,15 @@
             this.Images = new HashSet<FieldImage>();
         }
 
-        public string Name { get; set; }
+        public string Type { get; set; }
 
-        public string PopulatedArea { get; set; }
+        public Town Town { get; set; }
 
-        public string Location { get; set; }
+        public int TownId { get; set; }
+
+        public District District { get; set; }
+
+        public int DistrictId { get; set; }
 
         public decimal Price { get; set; }
 

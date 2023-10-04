@@ -51,6 +51,9 @@ namespace Imoty.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
@@ -60,14 +63,8 @@ namespace Imoty.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("PopulatedArea")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -78,13 +75,23 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("TotalFloors")
                         .HasColumnType("int");
 
+                    b.Property<int>("TownId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddedByUserId");
 
                     b.HasIndex("ConstructionId");
 
+                    b.HasIndex("DistrictId");
+
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("TownId");
 
                     b.ToTable("Apartments");
                 });
@@ -232,23 +239,17 @@ namespace Imoty.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int");
+
                     b.Property<int>("FrontSpace")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PopulatedArea")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -259,13 +260,23 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("SquareMeters")
                         .HasColumnType("int");
 
+                    b.Property<int>("TownId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddedByUserId");
 
                     b.HasIndex("ConstructionId");
 
+                    b.HasIndex("DistrictId");
+
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("TownId");
 
                     b.ToTable("BusinesStores");
                 });
@@ -300,6 +311,36 @@ namespace Imoty.Data.Migrations
                     b.ToTable("Constructions");
                 });
 
+            modelBuilder.Entity("Imoty.Data.Models.District", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Districts");
+                });
+
             modelBuilder.Entity("Imoty.Data.Models.Field", b =>
                 {
                     b.Property<int>("Id")
@@ -320,20 +361,14 @@ namespace Imoty.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PopulatedArea")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -341,11 +376,21 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("SquareMeters")
                         .HasColumnType("int");
 
+                    b.Property<int>("TownId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddedByUserId");
 
+                    b.HasIndex("DistrictId");
+
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("TownId");
 
                     b.ToTable("Fields");
                 });
@@ -382,23 +427,17 @@ namespace Imoty.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Garages")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PopulatedArea")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -409,13 +448,23 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("TotalFloors")
                         .HasColumnType("int");
 
+                    b.Property<int>("TownId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddedByUserId");
 
                     b.HasIndex("ConstructionId");
 
+                    b.HasIndex("DistrictId");
+
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("TownId");
 
                     b.ToTable("Houses");
                 });
@@ -565,6 +614,36 @@ namespace Imoty.Data.Migrations
                     b.ToTable("WarehouseImages");
                 });
 
+            modelBuilder.Entity("Imoty.Data.Models.Town", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Towns");
+                });
+
             modelBuilder.Entity("Imoty.Data.Models.Warehouse", b =>
                 {
                     b.Property<int>("Id")
@@ -588,20 +667,14 @@ namespace Imoty.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PopulatedArea")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -609,13 +682,23 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("SquareMeters")
                         .HasColumnType("int");
 
+                    b.Property<int>("TownId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddedByUserId");
 
                     b.HasIndex("ConstructionId");
 
+                    b.HasIndex("DistrictId");
+
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("TownId");
 
                     b.ToTable("Warehouses");
                 });
@@ -738,9 +821,25 @@ namespace Imoty.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Imoty.Data.Models.District", "District")
+                        .WithMany("Apartments")
+                        .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Town", "Town")
+                        .WithMany("Apartments")
+                        .HasForeignKey("TownId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("AddedByUser");
 
                     b.Navigation("Construction");
+
+                    b.Navigation("District");
+
+                    b.Navigation("Town");
                 });
 
             modelBuilder.Entity("Imoty.Data.Models.BusinesStore", b =>
@@ -755,9 +854,25 @@ namespace Imoty.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Imoty.Data.Models.District", "District")
+                        .WithMany("BusinesStores")
+                        .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Town", "Town")
+                        .WithMany("BusinesStores")
+                        .HasForeignKey("TownId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("AddedByUser");
 
                     b.Navigation("Construction");
+
+                    b.Navigation("District");
+
+                    b.Navigation("Town");
                 });
 
             modelBuilder.Entity("Imoty.Data.Models.Field", b =>
@@ -766,7 +881,23 @@ namespace Imoty.Data.Migrations
                         .WithMany("Fields")
                         .HasForeignKey("AddedByUserId");
 
+                    b.HasOne("Imoty.Data.Models.District", "District")
+                        .WithMany("Fields")
+                        .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Town", "Town")
+                        .WithMany("Fields")
+                        .HasForeignKey("TownId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("AddedByUser");
+
+                    b.Navigation("District");
+
+                    b.Navigation("Town");
                 });
 
             modelBuilder.Entity("Imoty.Data.Models.House", b =>
@@ -781,9 +912,25 @@ namespace Imoty.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Imoty.Data.Models.District", "District")
+                        .WithMany("Houses")
+                        .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Town", "Town")
+                        .WithMany("Houses")
+                        .HasForeignKey("TownId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("AddedByUser");
 
                     b.Navigation("Construction");
+
+                    b.Navigation("District");
+
+                    b.Navigation("Town");
                 });
 
             modelBuilder.Entity("Imoty.Data.Models.ImageModels.ApartmentImage", b =>
@@ -883,9 +1030,25 @@ namespace Imoty.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Imoty.Data.Models.District", "District")
+                        .WithMany("Warehouses")
+                        .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Town", "Town")
+                        .WithMany("Warehouses")
+                        .HasForeignKey("TownId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("AddedByUser");
 
                     b.Navigation("Construction");
+
+                    b.Navigation("District");
+
+                    b.Navigation("Town");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -989,6 +1152,19 @@ namespace Imoty.Data.Migrations
                     b.Navigation("Warehouses");
                 });
 
+            modelBuilder.Entity("Imoty.Data.Models.District", b =>
+                {
+                    b.Navigation("Apartments");
+
+                    b.Navigation("BusinesStores");
+
+                    b.Navigation("Fields");
+
+                    b.Navigation("Houses");
+
+                    b.Navigation("Warehouses");
+                });
+
             modelBuilder.Entity("Imoty.Data.Models.Field", b =>
                 {
                     b.Navigation("Images");
@@ -997,6 +1173,19 @@ namespace Imoty.Data.Migrations
             modelBuilder.Entity("Imoty.Data.Models.House", b =>
                 {
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Imoty.Data.Models.Town", b =>
+                {
+                    b.Navigation("Apartments");
+
+                    b.Navigation("BusinesStores");
+
+                    b.Navigation("Fields");
+
+                    b.Navigation("Houses");
+
+                    b.Navigation("Warehouses");
                 });
 
             modelBuilder.Entity("Imoty.Data.Models.Warehouse", b =>

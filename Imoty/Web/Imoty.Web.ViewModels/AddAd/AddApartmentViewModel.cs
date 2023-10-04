@@ -10,21 +10,29 @@
 
     public class AddApartmentViewModel : IValidatableObject
     {
+        // [RegularExpression(
+        //   "[A-Z][a-z]+",
+        //   ErrorMessage = "Type has to start with upper case letter.")]
         [Required]
-        [MaxLength(50, ErrorMessage = "City/Village name can't be more than 50 digits.")]
-        [MinLength(4, ErrorMessage = "City/Village name must be at least 4 digits long.")]
-        [RegularExpression(
-           "[A-Z][a-z]+",
-           ErrorMessage = "City/Village name has to start with upper case letter.")]
-        public string PopulatedArea { get; set; }
+        [MaxLength(50, ErrorMessage = "Type can't be more than 50 digits.")]
+        [MinLength(4, ErrorMessage = "Type has to be at least 4 digits long.")]
+        public string Type { get; set; }
 
-        [Required]
-        [MaxLength(50, ErrorMessage = "Location name can't be more than 50 digits.")]
-        [MinLength(4, ErrorMessage = "Location name has to be be at least 4 digits long.")]
         [RegularExpression(
-         "[A-Z][a-z]+",
-         ErrorMessage = "Locaion has to start with upper case letter.")]
-        public string Location { get; set; }
+          "[A-Z][a-z]+",
+          ErrorMessage = "Town name has to start with upper case letter.")]
+        [Required]
+        [MaxLength(50, ErrorMessage = "Town name can't be more than 50 digits.")]
+        [MinLength(4, ErrorMessage = "Towne name must be at least 4 digits long.")]
+        public string Town { get; set; }
+
+        [RegularExpression(
+        "[A-Za-z-\\s]+",
+        ErrorMessage = "District has to start with upper case letter.")]
+        [Required]
+        [MaxLength(50, ErrorMessage = "District name can't be more than 50 digits.")]
+        [MinLength(4, ErrorMessage = "District name has to be be at least 4 digits long.")]
+        public string District { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Price has to have positive value.")]
         public decimal Price { get; set; }

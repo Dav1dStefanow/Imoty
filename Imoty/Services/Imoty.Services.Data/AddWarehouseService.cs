@@ -6,40 +6,44 @@
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
     using Imoty.Data.Models.ImageModels;
+    using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels.AddAd;
 
     public class AddWarehouseService : IAddWarehouseService
     {
-        private readonly IDeletableEntityRepository<Construction> constructionsRepository;
         private readonly IDeletableEntityRepository<Warehouse> warehousesRepository;
         private readonly IRepository<WarehouseImage> warehouseImagesRepository;
+        private readonly CostructionValidationService costructionValidationService;
+        private readonly TownValidationService townValidationService;
+        private readonly DistrictValidationService districtValidationService;
 
         public AddWarehouseService(
-            IDeletableEntityRepository<Construction> constructionsRepository,
             IDeletableEntityRepository<Warehouse> warehousesRepository,
-            IRepository<WarehouseImage> warehouseImagesRepository)
+            IRepository<WarehouseImage> warehouseImagesRepository,
+            CostructionValidationService costructionValidationService,
+            TownValidationService townValidationService,
+            DistrictValidationService districtValidationService)
         {
-            this.constructionsRepository = constructionsRepository;
             this.warehousesRepository = warehousesRepository;
             this.warehouseImagesRepository = warehouseImagesRepository;
+            this.costructionValidationService = costructionValidationService;
+            this.townValidationService = townValidationService;
+            this.districtValidationService = districtValidationService;
         }
 
         public async Task AddWarehouseAsync(AddWarehouseViewModel viewModel)
         {
-            if (!this.constructionsRepository.AllAsNoTrackingWithDeleted().Any(c => c.Name == viewModel.Construction))
-            {
-                await this.constructionsRepository.AddAsync(new Construction { Name = viewModel.Construction });
-            }
+            Construction construction = this.costructionValidationService.ValidateConstruction(viewModel);
 
-            await this.constructionsRepository.SaveChangesAsync();
+            Town town = this.townValidationService.ValidateTown(viewModel);
 
-            Construction construction = this.constructionsRepository.AllAsNoTrackingWithDeleted().FirstOrDefault(c => c.Name == viewModel.Construction);
+            District district = this.districtValidationService.ValidateDistrict(viewModel);
 
             var input = new Warehouse
             {
-                Name = viewModel.Name,
-                PopulatedArea = viewModel.PopulatedArea,
-                Location = viewModel.Location,
+                Type = viewModel.Type,
+                TownId = town.Id,
+                DistrictId = district.Id,
                 ConstructionId = construction.Id,
                 Price = viewModel.Price,
                 Description = viewModel.Description,

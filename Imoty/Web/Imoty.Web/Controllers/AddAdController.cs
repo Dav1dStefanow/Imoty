@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    using Imoty.Services.Data;
+    using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels.AddAd;
     using Microsoft.AspNetCore.Mvc;
 

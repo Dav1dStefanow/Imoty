@@ -6,39 +6,44 @@
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
     using Imoty.Data.Models.ImageModels;
+    using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels.AddAd;
 
     public class AddApartmentService : IAddApartmentService
     {
-        private readonly IDeletableEntityRepository<Construction> constructionsRepository;
         private readonly IDeletableEntityRepository<Apartment> apartmentsRepository;
         private readonly IRepository<ApartmentImage> apartmentImagesRepository;
+        private readonly CostructionValidationService validateConstructionService;
+        private readonly TownValidationService townValidationService;
+        private readonly DistrictValidationService districtValidationService;
 
         public AddApartmentService(
-            IDeletableEntityRepository<Construction> constructionsRepository,
             IDeletableEntityRepository<Apartment> apartmentsRepository,
-            IRepository<ApartmentImage> apartmentImagesRepository)
+            IRepository<ApartmentImage> apartmentImagesRepository,
+            CostructionValidationService validateConstructionService,
+            TownValidationService townValidationService,
+            DistrictValidationService districtValidationService)
         {
-            this.constructionsRepository = constructionsRepository;
             this.apartmentsRepository = apartmentsRepository;
             this.apartmentImagesRepository = apartmentImagesRepository;
+            this.validateConstructionService = validateConstructionService;
+            this.townValidationService = townValidationService;
+            this.districtValidationService = districtValidationService;
         }
 
         public async Task AddApartmentAsync(AddApartmentViewModel viewModel)
         {
-            if (!this.constructionsRepository.AllAsNoTrackingWithDeleted().Any(c => c.Name == viewModel.Construction))
-            {
-                await this.constructionsRepository.AddAsync(new Construction { Name = viewModel.Construction });
-            }
+            Construction construction = this.validateConstructionService.ValidateConstruction(viewModel);
 
-            await this.constructionsRepository.SaveChangesAsync();
+            Town town = this.townValidationService.ValidateTown(viewModel);
 
-            Construction construction = this.constructionsRepository.AllAsNoTrackingWithDeleted().FirstOrDefault(c => c.Name == viewModel.Construction);
+            District district = this.districtValidationService.ValidateDistrict(viewModel);
 
             var input = new Apartment
             {
-                PopulatedArea = viewModel.PopulatedArea,
-                Location = viewModel.Location,
+                Type = viewModel.Type,
+                TownId = town.Id,
+                DistrictId = district.Id,
                 BathRooms = viewModel.BathRooms,
                 BedRooms = viewModel.BedRooms,
                 Garages = viewModel.Garages,

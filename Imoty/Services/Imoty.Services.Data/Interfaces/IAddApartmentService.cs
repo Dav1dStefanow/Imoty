@@ -1,4 +1,4 @@
-﻿namespace Imoty.Services.Data
+﻿namespace Imoty.Services.Data.Interfaces
 {
     using System;
     using System.Collections.Generic;
