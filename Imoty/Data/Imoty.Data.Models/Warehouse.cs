@@ -14,6 +14,7 @@
         public Warehouse()
         {
             this.Images = new HashSet<WarehouseImage>();
+            this.Tags = new HashSet<Tag>();
         }
 
         public string Type { get; set; }
@@ -41,5 +42,7 @@
         public virtual ApplicationUser AddedByUser { get; set; }
 
         public virtual ICollection<WarehouseImage> Images { get; set; }
+
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

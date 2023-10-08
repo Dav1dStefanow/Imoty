@@ -49,9 +49,6 @@
         [MaxLength(1000)]
         public string Description { get; set; }
 
-        [Range(0, 10, ErrorMessage = "Garages has to have positive value.")]
-        public int Garages { get; set; }
-
         [Range(1, 10, ErrorMessage = "Total floors has to have positive value.")]
         public int TotalFloors { get; set; }
 
@@ -62,6 +59,8 @@
            "[A-Z][a-z]+",
            ErrorMessage = "Construction name has to start with upper case letter.")]
         public string Construction { get; set; }
+
+        public IEnumerable<TagInputModel> Tags { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

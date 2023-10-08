@@ -87,5 +87,21 @@
         <span asp-validation-for="Construction" class="text-danger"></span>
     </div>
 
+    <div id="TagsContainer">
+        <label asp-for="Tags"></label>
+        <a class="btn btn-success" onclick="AddMoreTags()">+</a>
+    </div>
+
     <input type="submit" class="btn btn-primary"/>
 </form>
+
+@section Scripts{
+    <script>
+        var tagIndex = 0;
+        function AddMoreTags() {
+            console.log("AddMoreTags()");
+            $("#TagsContainer").append("<div class='form-control '>Name <input type='text' name='Tags[" + tagIndex + "].TagName' /></div>");
+            tagIndex++;
+        }
+    </script>
+}

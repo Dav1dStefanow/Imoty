@@ -12,7 +12,7 @@
     {
         public FieldImage()
         {
-            Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid().ToString();
         }
 
         public int FieldId { get; set; }

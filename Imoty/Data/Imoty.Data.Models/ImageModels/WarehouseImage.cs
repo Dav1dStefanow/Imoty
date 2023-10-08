@@ -12,7 +12,7 @@
     {
         public WarehouseImage()
         {
-            Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid().ToString();
         }
 
         public int WarehouseId { get; set; }

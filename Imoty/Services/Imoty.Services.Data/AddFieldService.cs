@@ -14,17 +14,20 @@
         private readonly IRepository<FieldImage> fieldImagesRepository;
         private readonly TownValidationService townValidationService;
         private readonly DistrictValidationService districtValidationService;
+        private readonly IDeletableEntityRepository<Tag> tagRepository;
 
         public AddFieldService(
             IDeletableEntityRepository<Field> fieldsRepository,
             IRepository<FieldImage> fieldImagesRepository,
             TownValidationService townValidationService,
-            DistrictValidationService districtValidationService)
+            DistrictValidationService districtValidationService,
+            IDeletableEntityRepository<Tag> tagRepository)
         {
             this.fieldsRepository = fieldsRepository;
             this.fieldImagesRepository = fieldImagesRepository;
             this.townValidationService = townValidationService;
             this.districtValidationService = districtValidationService;
+            this.tagRepository = tagRepository;
         }
 
         public async Task AddFieldAsync(AddFieldViewModel viewModel, string userId)
@@ -43,7 +46,19 @@
                 SquareMeters = viewModel.SquareMeters,
                 AddedByUserId = userId,
             };
+            foreach (var tagg in viewModel.Tags)
+            {
+                var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagg.TagName);
+                if (tag == null)
+                {
+                    tag = new Tag { Name = tagg.TagName };
+                    await this.tagRepository.AddAsync(tag);
+                }
 
+                input.Tags.Add(tag);
+            }
+
+            await this.tagRepository.SaveChangesAsync();
             await this.fieldsRepository.AddAsync(input);
             await this.fieldsRepository.SaveChangesAsync();
         }

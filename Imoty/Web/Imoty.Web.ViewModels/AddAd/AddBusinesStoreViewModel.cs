@@ -53,5 +53,7 @@
            "[A-Z][a-z]+",
            ErrorMessage = "Construction has to start with upper case letter.")]
         public string Construction { get; set; }
+
+        public IEnumerable<TagInputModel> Tags { get; set; }
     }
 }

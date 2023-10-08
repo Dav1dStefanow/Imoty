@@ -10,6 +10,7 @@
     using Imoty.Data.Seeding;
     using Imoty.Services.Data;
     using Imoty.Services.Data.Interfaces;
+    using Imoty.Services.Data.Models;
     using Imoty.Services.Mapping;
     using Imoty.Services.Messaging;
     using Imoty.Web.ViewModels;
@@ -70,6 +71,7 @@
             services.AddTransient<CostructionValidationService>();
             services.AddTransient<TownValidationService>();
             services.AddTransient<DistrictValidationService>();
+            services.AddTransient<ISalesService, SalesService>();
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();

@@ -1,6 +1,7 @@
 ﻿namespace Imoty.Web.ViewModels.AddAd
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class AddWarehouseViewModel
@@ -47,5 +48,7 @@
            "[A-Z][a-z]+",
            ErrorMessage = "Construction name has to start with upper case letter.")]
         public string Construction { get; set; }
+
+        public IEnumerable<TagInputModel> Tags { get; set; }
     }
 }

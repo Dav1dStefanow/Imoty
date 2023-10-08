@@ -18,6 +18,7 @@
         private readonly CostructionValidationService costructionValidationService;
         private readonly TownValidationService townValidationService;
         private readonly DistrictValidationService districtValidationService;
+        private readonly IDeletableEntityRepository<Tag> tagRepository;
 
         public AddHouseService(
             IDeletableEntityRepository<House> housesRepository,
@@ -26,7 +27,8 @@
             IDeletableEntityRepository<District> districtsRepository,
             CostructionValidationService costructionValidationService,
             TownValidationService townValidationService,
-            DistrictValidationService districtValidationService)
+            DistrictValidationService districtValidationService,
+            IDeletableEntityRepository<Tag> tagRepository)
         {
             this.housesRepository = housesRepository;
             this.houseImagesRepository = houseImagesRepository;
@@ -34,6 +36,7 @@
             this.costructionValidationService = costructionValidationService;
             this.townValidationService = townValidationService;
             this.districtValidationService = districtValidationService;
+            this.tagRepository = tagRepository;
         }
 
         public async Task AddHouseAsync(AddHouseViewModel viewModel, string userId)
@@ -51,7 +54,6 @@
                 DistrictId = district.Id,
                 BathRooms = viewModel.BathRooms,
                 BedRooms = viewModel.BedRooms,
-                Garages = viewModel.Garages,
                 TotalFloors = viewModel.TotalFloors,
                 ConstructionId = construction.Id,
                 Price = viewModel.Price,
@@ -60,7 +62,19 @@
                 BuiltUpArea = viewModel.BuiltUpArea,
                 AddedByUserId = userId,
             };
+            foreach (var tagg in viewModel.Tags)
+            {
+                var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagg.TagName);
+                if (tag == null)
+                {
+                    tag = new Tag { Name = tagg.TagName };
+                    await this.tagRepository.AddAsync(tag);
+                }
 
+                input.Tags.Add(tag);
+            }
+
+            await this.tagRepository.SaveChangesAsync();
             await this.housesRepository.AddAsync(input);
             await this.housesRepository.SaveChangesAsync();
         }

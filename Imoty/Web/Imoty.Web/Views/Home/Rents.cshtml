@@ -4,7 +4,39 @@
 }
 <div class="text-center">
     <h1>Welcome to @GlobalConstants.SystemName</h1>
-
-    <p>Can't find any rents yet</p>
 </div>
 
+<hr />
+
+<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    @for (int i = 0; i < 15; i++)
+    {
+        <div class="card col-md-4">
+            <img src="..." class="card-img-top" alt="...">
+
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    }
+</div>
+
+<hr />
+
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>

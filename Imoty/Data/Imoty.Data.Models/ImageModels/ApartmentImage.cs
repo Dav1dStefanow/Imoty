@@ -12,7 +12,7 @@
     {
         public ApartmentImage()
         {
-            Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid().ToString();
         }
 
         public int ApartmentId { get; set; }

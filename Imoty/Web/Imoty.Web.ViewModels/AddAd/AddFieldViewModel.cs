@@ -1,5 +1,6 @@
 ﻿namespace Imoty.Web.ViewModels.AddAd
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class AddFieldViewModel
@@ -38,5 +39,7 @@
         [MaxLength(1000, ErrorMessage = "Description name can't be more than 1000 digits.")]
         [MinLength(35, ErrorMessage = "Description name has to be at least 35 digits long.")]
         public string Description { get; set; }
+
+        public IEnumerable<TagInputModel> Tags { get; set; }
     }
 }

@@ -16,6 +16,7 @@
         public Apartment()
         {
             this.Images = new HashSet<ApartmentImage>();
+            this.Tags = new HashSet<Tag>();
         }
 
         public string Type { get; set; }
@@ -40,8 +41,6 @@
 
         public int TotalFloors { get; set; }
 
-        public int Garages { get; set; }
-
         [Range(1, 100)]
         public int Floor { get; set; }
 
@@ -54,5 +53,7 @@
         public virtual ApplicationUser AddedByUser { get; set; }
 
         public virtual ICollection<ApartmentImage> Images { get; set; }
+
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

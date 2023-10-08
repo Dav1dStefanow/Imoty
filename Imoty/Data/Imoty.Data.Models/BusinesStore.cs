@@ -14,6 +14,7 @@
         public BusinesStore()
         {
             this.Images = new HashSet<BusinesStoreImage>();
+            this.Tags = new HashSet<Tag>();
         }
 
         public string Type { get; set; }
@@ -45,5 +46,7 @@
         public virtual ApplicationUser AddedByUser { get; set; }
 
         public virtual ICollection<BusinesStoreImage> Images { get; set; }
+
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

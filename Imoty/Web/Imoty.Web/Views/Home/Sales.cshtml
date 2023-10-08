@@ -1,8 +1,44 @@
 ﻿@using Imoty.Common;
+@using Imoty.Web.ViewModels.Home;
+@model SalesInListViewModel
 @{
     this.ViewData["Title"] = "Продажби";
 }
-
 <div class="text-center">
     <h1>Welcome to @GlobalConstants.SystemName</h1>
 </div>
+
+<hr />
+
+<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    @foreach(var property in this.Model.PropertiesForSale)
+    {
+        <div class="card col-md-4">
+            <img src="@property.ImageUrl" class="card-img-top" alt="...">
+    
+            <div class="card-body">
+                <h5 class="card-title">@property.Type</h5>
+                <p class="card-text">@property.CategoryName</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    }
+</div>
+
+<hr />
+
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>

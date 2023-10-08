@@ -14,6 +14,7 @@
         public Field()
         {
             this.Images = new HashSet<FieldImage>();
+            this.Tags = new HashSet<Tag>();
         }
 
         public string Type { get; set; }
@@ -37,5 +38,7 @@
         public virtual ApplicationUser AddedByUser { get; set; }
 
         public virtual ICollection<FieldImage> Images { get; set; }
+
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

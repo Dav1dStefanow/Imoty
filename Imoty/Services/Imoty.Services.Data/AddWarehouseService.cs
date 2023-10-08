@@ -16,19 +16,22 @@
         private readonly CostructionValidationService costructionValidationService;
         private readonly TownValidationService townValidationService;
         private readonly DistrictValidationService districtValidationService;
+        private readonly IDeletableEntityRepository<Tag> tagRepository;
 
         public AddWarehouseService(
             IDeletableEntityRepository<Warehouse> warehousesRepository,
             IRepository<WarehouseImage> warehouseImagesRepository,
             CostructionValidationService costructionValidationService,
             TownValidationService townValidationService,
-            DistrictValidationService districtValidationService)
+            DistrictValidationService districtValidationService,
+            IDeletableEntityRepository<Tag> tagRepository)
         {
             this.warehousesRepository = warehousesRepository;
             this.warehouseImagesRepository = warehouseImagesRepository;
             this.costructionValidationService = costructionValidationService;
             this.townValidationService = townValidationService;
             this.districtValidationService = districtValidationService;
+            this.tagRepository = tagRepository;
         }
 
         public async Task AddWarehouseAsync(AddWarehouseViewModel viewModel, string userId)
@@ -50,7 +53,19 @@
                 SquareMeters = viewModel.SquareMeters,
                 AddedByUserId = userId,
             };
+            foreach (var tagg in viewModel.Tags)
+            {
+                var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagg.TagName);
+                if (tag == null)
+                {
+                    tag = new Tag { Name = tagg.TagName };
+                    await this.tagRepository.AddAsync(tag);
+                }
 
+                input.Tags.Add(tag);
+            }
+
+            await this.tagRepository.SaveChangesAsync();
             await this.warehousesRepository.AddAsync(input);
             await this.warehousesRepository.SaveChangesAsync();
         }
