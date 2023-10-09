@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Imoty.Data.Models\Imoty.Data.Models.csproj" />
+    <ProjectReference Include="..\Imoty.Services.Data\Imoty.Services.Data.csproj" />
+  </ItemGroup>
+
 </Project>

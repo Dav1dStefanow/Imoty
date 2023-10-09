@@ -1,7 +1,9 @@
 ﻿namespace Imoty.Services
 {
+    using System.Threading.Tasks;
+
     public interface IImotyBgScraperService
     {
-        void PopulateDbWithProperies();
+        Task PopulateDbWithProperiesAsync(string link);
     }
 }

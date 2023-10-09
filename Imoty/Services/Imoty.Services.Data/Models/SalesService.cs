@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Imoty.Data.Common.Models;
+
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
     using Imoty.Services.Data.Interfaces;

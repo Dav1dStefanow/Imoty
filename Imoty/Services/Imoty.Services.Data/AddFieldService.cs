@@ -46,6 +46,7 @@
                 SquareMeters = viewModel.SquareMeters,
                 AddedByUserId = userId,
             };
+
             foreach (var tagg in viewModel.Tags)
             {
                 var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagg.TagName);

@@ -3,11 +3,12 @@
     using System;
     using System.Diagnostics;
     using System.Linq;
-
+    using System.Threading.Tasks;
     using Imoty.Data;
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
     using Imoty.Data.Models.ImageModels;
+    using Imoty.Services;
     using Imoty.Services.Data;
     using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels;
@@ -18,10 +19,14 @@
     public class HomeController : BaseController
     {
         private readonly ISalesService salesService;
+        private readonly IImotyBgScraperService imotyBgScraperService;
 
-        public HomeController(ISalesService salesService)
+        public HomeController(
+            ISalesService salesService,
+            IImotyBgScraperService imotyBgScraperService)
         {
             this.salesService = salesService;
+            this.imotyBgScraperService = imotyBgScraperService;
         }
 
         public IActionResult Index()
@@ -57,6 +62,23 @@
         public IActionResult NewBuilding()
         {
             return this.View();
+        }
+
+        public IActionResult ScrapData()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ScrapData(ScrapDataViewModel viewModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(viewModel);
+            }
+
+            await this.imotyBgScraperService.PopulateDbWithProperiesAsync(viewModel.PropertyLink);
+            return this.RedirectToAction("ThankYou");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

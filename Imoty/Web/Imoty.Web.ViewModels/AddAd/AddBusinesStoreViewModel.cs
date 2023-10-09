@@ -32,8 +32,8 @@
         [Range(1, int.MaxValue, ErrorMessage = "Price has to be positive a value.")]
         public decimal Price { get; set; }
 
-        [Range(1, 100, ErrorMessage = "Rooms has to have positive value.")]
-        public int Rooms { get; set; }
+        [Range(1, 100, ErrorMessage = "BathRooms has to have positive value.")]
+        public int BathRooms { get; set; }
 
         [Range(1, 100, ErrorMessage = "Square meters has to have positive value.")]
         public int SquareMeters { get; set; }

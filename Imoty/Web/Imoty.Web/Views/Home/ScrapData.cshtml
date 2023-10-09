@@ -1,0 +1,12 @@
+﻿@using Imoty.Web.ViewModels.Home;
+@model ScrapDataViewModel
+@{
+    this.ViewData["Title"] = "AddProperty";
+}
+
+<form method="post" class="col-md-6 offset-md-3">
+    <label asp-for="PropertyLink"></label>
+    <input asp-for="PropertyLink" class="form-control"/>
+
+    <input type="submit" class="btn btn-success"/>
+</form>

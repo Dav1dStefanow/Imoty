@@ -29,7 +29,7 @@
 
         public decimal Price { get; set; }
 
-        public int Rooms { get; set; }
+        public int BathRooms { get; set; }
 
         public int SquareMeters { get; set; }
 
@@ -40,6 +40,8 @@
         public int ConstructionId { get; set; }
 
         public virtual Construction Construction { get; set; }
+
+        public bool ForSale { get; set; }
 
         public string AddedByUserId { get; set; }
 

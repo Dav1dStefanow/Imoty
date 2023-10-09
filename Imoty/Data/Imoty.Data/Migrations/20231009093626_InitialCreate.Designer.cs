@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Imoty.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231004053020_InitialCreate")]
+    [Migration("20231009093626_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,66 @@ namespace Imoty.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ApartmentTag", b =>
+                {
+                    b.Property<int>("ApartmentsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApartmentsId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("ApartmentTag");
+                });
+
+            modelBuilder.Entity("BusinesStoreTag", b =>
+                {
+                    b.Property<int>("BusinesStoresId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BusinesStoresId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("BusinesStoreTag");
+                });
+
+            modelBuilder.Entity("FieldTag", b =>
+                {
+                    b.Property<int>("FieldsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FieldsId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("FieldTag");
+                });
+
+            modelBuilder.Entity("HouseTag", b =>
+                {
+                    b.Property<int>("HousesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HousesId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("HouseTag");
+                });
 
             modelBuilder.Entity("Imoty.Data.Models.Apartment", b =>
                 {
@@ -60,8 +120,8 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
-                    b.Property<int>("Garages")
-                        .HasColumnType("int");
+                    b.Property<bool>("ForSale")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -230,6 +290,9 @@ namespace Imoty.Data.Migrations
                     b.Property<string>("AddedByUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("BathRooms")
+                        .HasColumnType("int");
+
                     b.Property<int>("ConstructionId")
                         .HasColumnType("int");
 
@@ -245,6 +308,9 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("DistrictId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("ForSale")
+                        .HasColumnType("bit");
+
                     b.Property<int>("FrontSpace")
                         .HasColumnType("int");
 
@@ -256,9 +322,6 @@ namespace Imoty.Data.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Rooms")
-                        .HasColumnType("int");
 
                     b.Property<int>("SquareMeters")
                         .HasColumnType("int");
@@ -433,8 +496,8 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("DistrictId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Garages")
-                        .HasColumnType("int");
+                    b.Property<bool>("ForSale")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -617,6 +680,36 @@ namespace Imoty.Data.Migrations
                     b.ToTable("WarehouseImages");
                 });
 
+            modelBuilder.Entity("Imoty.Data.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("Imoty.Data.Models.Town", b =>
                 {
                     b.Property<int>("Id")
@@ -672,6 +765,9 @@ namespace Imoty.Data.Migrations
 
                     b.Property<int>("DistrictId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("ForSale")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -810,6 +906,81 @@ namespace Imoty.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("TagWarehouse", b =>
+                {
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehousesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TagsId", "WarehousesId");
+
+                    b.HasIndex("WarehousesId");
+
+                    b.ToTable("TagWarehouse");
+                });
+
+            modelBuilder.Entity("ApartmentTag", b =>
+                {
+                    b.HasOne("Imoty.Data.Models.Apartment", null)
+                        .WithMany()
+                        .HasForeignKey("ApartmentsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BusinesStoreTag", b =>
+                {
+                    b.HasOne("Imoty.Data.Models.BusinesStore", null)
+                        .WithMany()
+                        .HasForeignKey("BusinesStoresId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FieldTag", b =>
+                {
+                    b.HasOne("Imoty.Data.Models.Field", null)
+                        .WithMany()
+                        .HasForeignKey("FieldsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HouseTag", b =>
+                {
+                    b.HasOne("Imoty.Data.Models.House", null)
+                        .WithMany()
+                        .HasForeignKey("HousesId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Imoty.Data.Models.Apartment", b =>
@@ -1101,6 +1272,21 @@ namespace Imoty.Data.Migrations
                     b.HasOne("Imoty.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TagWarehouse", b =>
+                {
+                    b.HasOne("Imoty.Data.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Imoty.Data.Models.Warehouse", null)
+                        .WithMany()
+                        .HasForeignKey("WarehousesId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

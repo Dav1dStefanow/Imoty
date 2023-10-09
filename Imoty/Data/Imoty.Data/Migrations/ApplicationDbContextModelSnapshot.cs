@@ -117,6 +117,9 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
+                    b.Property<bool>("ForSale")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -284,6 +287,9 @@ namespace Imoty.Data.Migrations
                     b.Property<string>("AddedByUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("BathRooms")
+                        .HasColumnType("int");
+
                     b.Property<int>("ConstructionId")
                         .HasColumnType("int");
 
@@ -299,6 +305,9 @@ namespace Imoty.Data.Migrations
                     b.Property<int>("DistrictId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("ForSale")
+                        .HasColumnType("bit");
+
                     b.Property<int>("FrontSpace")
                         .HasColumnType("int");
 
@@ -310,9 +319,6 @@ namespace Imoty.Data.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Rooms")
-                        .HasColumnType("int");
 
                     b.Property<int>("SquareMeters")
                         .HasColumnType("int");
@@ -486,6 +492,9 @@ namespace Imoty.Data.Migrations
 
                     b.Property<int>("DistrictId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("ForSale")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -753,6 +762,9 @@ namespace Imoty.Data.Migrations
 
                     b.Property<int>("DistrictId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("ForSale")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

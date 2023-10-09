@@ -62,6 +62,16 @@
                 BuiltUpArea = viewModel.BuiltUpArea,
                 AddedByUserId = userId,
             };
+
+            if (viewModel.Price < 10000)
+            {
+                input.ForSale = false;
+            }
+            else
+            {
+                input.ForSale = true;
+            }
+
             foreach (var tagg in viewModel.Tags)
             {
                 var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagg.TagName);

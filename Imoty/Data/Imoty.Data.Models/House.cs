@@ -45,6 +45,8 @@
 
         public virtual Construction Construction { get; set; }
 
+        public bool ForSale { get; set; }
+
         public string AddedByUserId { get; set; }
 
         public virtual ApplicationUser AddedByUser { get; set; }
