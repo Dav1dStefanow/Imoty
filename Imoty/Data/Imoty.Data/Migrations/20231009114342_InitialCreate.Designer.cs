@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Imoty.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231009093626_InitialCreate")]
+    [Migration("20231009114342_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

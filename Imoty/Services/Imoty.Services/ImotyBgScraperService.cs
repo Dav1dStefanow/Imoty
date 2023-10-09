@@ -236,7 +236,6 @@
                         foreach (var element in elements)
                         {
                             otherAttributes.Add(element.TextContent);
-                            Console.WriteLine(element.TextContent);
                         }
                     }
                 }
@@ -302,29 +301,33 @@
                     apartment.ForSale = true;
                 }
 
-                foreach (var tag in otherAttributes)
+                foreach (var tagDto in otherAttributes)
                 {
-                    if (!this.tagRepository.AllAsNoTrackingWithDeleted().Any(c => c.Name == tag))
+                    var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagDto);
+                    if (tag == null)
                     {
-                        await this.tagRepository.AddAsync(new Tag { Name = tag });
-                        await this.tagRepository.SaveChangesAsync();
+                        tag = new Tag { Name = tagDto };
+                        await this.tagRepository.AddAsync(tag);
                     }
 
-                    var tagg = this.tagRepository.AllAsNoTracking().FirstOrDefault(t => t.Name == tag);
-                    apartment.Tags.Add(tagg);
+                    apartment.Tags.Add(tag);
                 }
 
-                await this.apartmentsRepository.SaveChangesAsync();
-                foreach (var i in images)
+                await this.tagRepository.SaveChangesAsync();
+                foreach (var imageDto in images)
                 {
-                    var apartmentImage = new ApartmentImage
+                    var image = this.apartmentImagesRepository.All().FirstOrDefault(t => t.Extension == imageDto);
+                    if (image == null)
                     {
-                        Extension = i,
-                        ApartmentId = apartment.Id,
-                    };
-                    apartment.Images.Add(apartmentImage);
+                        image = new ApartmentImage { Extension = imageDto, ApartmentId = apartment.Id };
+                        await this.apartmentImagesRepository.AddAsync(image);
+                    }
+
+                    apartment.Images.Add(image);
                 }
 
+                await this.apartmentsRepository.AddAsync(apartment);
+                await this.apartmentsRepository.SaveChangesAsync();
                 await this.apartmentImagesRepository.SaveChangesAsync();
             }
             else if (totalFloors != 0)
@@ -353,29 +356,33 @@
                     house.ForSale = true;
                 }
 
-                foreach (var tag in otherAttributes)
+                foreach (var tagDto in otherAttributes)
                 {
-                    if (!this.tagRepository.AllAsNoTrackingWithDeleted().Any(c => c.Name == tag))
+                    var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagDto);
+                    if (tag == null)
                     {
-                        await this.tagRepository.AddAsync(new Tag { Name = tag });
-                        await this.tagRepository.SaveChangesAsync();
+                        tag = new Tag { Name = tagDto };
+                        await this.tagRepository.AddAsync(tag);
                     }
 
-                    var tagg = this.tagRepository.AllAsNoTracking().FirstOrDefault(t => t.Name == tag);
-                    house.Tags.Add(tagg);
+                    house.Tags.Add(tag);
                 }
 
-                await this.housesRepository.SaveChangesAsync();
-                foreach (var i in images)
+                await this.tagRepository.SaveChangesAsync();
+                foreach (var imageDto in images)
                 {
-                    var houseImage = new HouseImage
+                    var image = this.houseImagesRepository.All().FirstOrDefault(t => t.Extension == imageDto);
+                    if (image == null)
                     {
-                        Extension = i,
-                        HouseId = house.Id,
-                    };
-                    house.Images.Add(houseImage);
+                        image = new HouseImage { Extension = imageDto, HouseId = house.Id };
+                        await this.houseImagesRepository.AddAsync(image);
+                    }
+
+                    house.Images.Add(image);
                 }
 
+                await this.housesRepository.AddAsync(house);
+                await this.housesRepository.SaveChangesAsync();
                 await this.houseImagesRepository.SaveChangesAsync();
             }
             else if (bedRooms == 0)
@@ -401,31 +408,34 @@
                 {
                     store.ForSale = true;
                 }
-
-                foreach (var tag in otherAttributes)
+                foreach (var tagDto in otherAttributes)
                 {
-                    if (!this.tagRepository.AllAsNoTrackingWithDeleted().Any(c => c.Name == tag))
+                    var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagDto);
+                    if (tag == null)
                     {
-                        await this.tagRepository.AddAsync(new Tag { Name = tag });
-                        await this.tagRepository.SaveChangesAsync();
+                        tag = new Tag { Name = tagDto };
+                        await this.tagRepository.AddAsync(tag);
                     }
 
-                    var tagg = this.tagRepository.AllAsNoTracking().FirstOrDefault(t => t.Name == tag);
-                    store.Tags.Add(tagg);
+                    store.Tags.Add(tag);
                 }
 
-                await this.businesStoresRepository.SaveChangesAsync();
-                foreach (var i in images)
+                await this.tagRepository.SaveChangesAsync();
+                foreach (var imageDto in images)
                 {
-                    var storeImage = new BusinesStoreImage
+                    var image = this.businesStoreImagesRepository.All().FirstOrDefault(t => t.Extension == imageDto);
+                    if (image == null)
                     {
-                        Extension = i,
-                        BusinesStoreId = store.Id,
-                    };
-                    store.Images.Add(storeImage);
+                        image = new BusinesStoreImage { Extension = imageDto, BusinesStoreId = store.Id };
+                        await this.businesStoreImagesRepository.AddAsync(image);
+                    }
+
+                    store.Images.Add(image);
                 }
 
+                await this.businesStoresRepository.AddAsync(store);
                 await this.businesStoresRepository.SaveChangesAsync();
+                await this.businesStoreImagesRepository.SaveChangesAsync();
             }
             else if (bedRooms == 0 && bathRooms == 0 && price > 10000)
             {
@@ -439,30 +449,34 @@
                     SquareMeters = squareMeters,
                 };
 
-                foreach (var tag in otherAttributes)
+                foreach (var tagDto in otherAttributes)
                 {
-                    if (!this.tagRepository.AllAsNoTrackingWithDeleted().Any(c => c.Name == tag))
+                    var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagDto);
+                    if (tag == null)
                     {
-                        await this.tagRepository.AddAsync(new Tag { Name = tag });
-                        await this.tagRepository.SaveChangesAsync();
+                        tag = new Tag { Name = tagDto };
+                        await this.tagRepository.AddAsync(tag);
                     }
 
-                    var tagg = this.tagRepository.AllAsNoTracking().FirstOrDefault(t => t.Name == tag);
-                    field.Tags.Add(tagg);
+                    field.Tags.Add(tag);
                 }
 
-                await this.fieldsRepository.SaveChangesAsync();
-                foreach (var i in images)
+                await this.tagRepository.SaveChangesAsync();
+                foreach (var imageDto in images)
                 {
-                    var fieldImage = new FieldImage
+                    var image = this.fieldImagesRepository.All().FirstOrDefault(t => t.Extension == imageDto);
+                    if (image == null)
                     {
-                        Extension = i,
-                        FieldId = field.Id,
-                    };
-                    field.Images.Add(fieldImage);
+                        image = new FieldImage { Extension = imageDto, FieldId = field.Id };
+                        await this.fieldImagesRepository.AddAsync(image);
+                    }
+
+                    field.Images.Add(image);
                 }
 
+                await this.fieldsRepository.AddAsync(field);
                 await this.fieldsRepository.SaveChangesAsync();
+                await this.fieldImagesRepository.SaveChangesAsync();
             }
             else
             {
@@ -486,29 +500,33 @@
                     warehouse.ForSale = true;
                 }
 
-                foreach (var tag in otherAttributes)
+                foreach (var tagDto in otherAttributes)
                 {
-                    if (!this.tagRepository.AllAsNoTrackingWithDeleted().Any(c => c.Name == tag))
+                    var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagDto);
+                    if (tag == null)
                     {
-                        await this.tagRepository.AddAsync(new Tag { Name = tag });
-                        await this.tagRepository.SaveChangesAsync();
+                        tag = new Tag { Name = tagDto };
+                        await this.tagRepository.AddAsync(tag);
                     }
 
-                    var tagg = this.tagRepository.AllAsNoTracking().FirstOrDefault(t => t.Name == tag);
-                    warehouse.Tags.Add(tagg);
+                    warehouse.Tags.Add(tag);
                 }
 
-                await this.warehouseImagesRepository.SaveChangesAsync();
-                foreach (var i in images)
+                await this.tagRepository.SaveChangesAsync();
+                foreach (var imageDto in images)
                 {
-                    var warehouseImage = new WarehouseImage
+                    var image = this.warehouseImagesRepository.All().FirstOrDefault(t => t.Extension == imageDto);
+                    if (image == null)
                     {
-                        Extension = i,
-                        WarehouseId = warehouse.Id,
-                    };
-                    warehouse.Images.Add(warehouseImage);
+                        image = new WarehouseImage { Extension = imageDto, WarehouseId = warehouse.Id };
+                        await this.warehouseImagesRepository.AddAsync(image);
+                    }
+
+                    warehouse.Images.Add(image);
                 }
 
+                await this.warehousesRepository.AddAsync(warehouse);
+                await this.warehousesRepository.SaveChangesAsync();
                 await this.warehouseImagesRepository.SaveChangesAsync();
             }
         }
