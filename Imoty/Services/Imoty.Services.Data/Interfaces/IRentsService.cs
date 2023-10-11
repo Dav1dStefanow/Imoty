@@ -4,7 +4,7 @@
 
     using Imoty.Web.ViewModels.Home;
 
-    public interface ISalesService
+    public interface IRentsService
     {
         IEnumerable<PropertyForSaleRentViewModel> GetAllSales(int page, int itemsNumber = 15);
 

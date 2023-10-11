@@ -1,6 +1,6 @@
 ﻿namespace Imoty.Web.ViewModels.Home
 {
-    public class PropertyForSaleViewModel
+    public class PropertyForSaleRentViewModel
     {
         public int Id { get; set; }
 

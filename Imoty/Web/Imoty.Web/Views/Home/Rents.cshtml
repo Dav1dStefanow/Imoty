@@ -1,4 +1,6 @@
-﻿@using Imoty.Common;
+﻿@model SalesRentsOrNBInListViewModel
+@using Imoty.Common;
+@using Imoty.Web.ViewModels.Home;
 @{
     this.ViewData["Title"] = "Наеми";
 }
@@ -9,14 +11,14 @@
 <hr />
 
 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-    @for (int i = 0; i < 15; i++)
+    @foreach (var property in this.Model.PropertiesForSale)
     {
         <div class="card col-md-4">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="@property.ImageUrl" class="card-img-top" alt="...">
 
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h5 class="card-title">@property.Type</h5>
+                <p class="card-text">@property.CategoryName</p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
@@ -27,16 +29,18 @@
 
 <nav aria-label="...">
     <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link">Previous</a>
+        <li class="page-item @if(!Model.HasPreviousPage){
+        <text>disabled</text>
+ }">
+            <a class="page-link" asp-action="Sales" asp-route-id="@Model.PreviousPageNum">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
         <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2</a>
+            <a class="page-link" href="#">@Model.PageNumber</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+        <li class="page-item @if(!Model.HasNextPage){
+        <text>disabled</text>
+ }">
+            <a class="page-link" asp-action="Sales" asp-route-id="@Model.NextPageNum">Next</a>
         </li>
     </ul>
 </nav>

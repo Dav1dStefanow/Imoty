@@ -74,6 +74,8 @@
             services.AddTransient<DistrictValidationService>();
             services.AddTransient<ISalesService, SalesService>();
             services.AddTransient<IImotyBgScraperService, ImotyBgScraperService>();
+            services.AddTransient<IRentsService, RentService>();
+            services.AddTransient<INewBuildingsService, NewBuildingsService>();
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();

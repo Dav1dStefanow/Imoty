@@ -4,6 +4,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Imoty.Data;
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
@@ -19,22 +20,23 @@
     public class HomeController : BaseController
     {
         private readonly ISalesService salesService;
+        private readonly IRentsService rentsService;
+        private readonly INewBuildingsService newBuildingsService;
         private readonly IImotyBgScraperService imotyBgScraperService;
 
         public HomeController(
             ISalesService salesService,
+            IRentsService rentsService,
+            INewBuildingsService newBuildingsService,
             IImotyBgScraperService imotyBgScraperService)
         {
             this.salesService = salesService;
+            this.rentsService = rentsService;
+            this.newBuildingsService = newBuildingsService;
             this.imotyBgScraperService = imotyBgScraperService;
         }
 
         public IActionResult Index()
-        {
-            return this.View();
-        }
-
-        public IActionResult Agiencies()
         {
             return this.View();
         }
@@ -46,22 +48,44 @@
 
         public IActionResult Sales(int id = 1)
         {
-            var viewModel = new SalesInListViewModel
+            const int ItemsPerPage = 15;
+
+            var viewModel = new SalesRentsOrNBInListViewModel
             {
+                ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
-                PropertiesForSale = this.salesService.GetAllSales(id, 15),
+                PropertiesCount = this.salesService.GetCount(),
+                PropertiesForSale = this.salesService.GetAllSales(id, ItemsPerPage),
             };
             return this.View(viewModel);
         }
 
-        public IActionResult Rents()
+        public IActionResult Rents(int id = 1)
         {
-            return this.View();
+            const int ItemsPerPage = 15;
+
+            var viewModel = new SalesRentsOrNBInListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                PropertiesCount = this.rentsService.GetCount(),
+                PropertiesForSale = this.rentsService.GetAllSales(id, ItemsPerPage),
+            };
+            return this.View(viewModel);
         }
 
-        public IActionResult NewBuilding()
+        public IActionResult NewBuilding(int id = 1)
         {
-            return this.View();
+            const int ItemsPerPage = 15;
+
+            var viewModel = new SalesRentsOrNBInListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                PropertiesCount = this.newBuildingsService.GetCount(),
+                PropertiesForSale = this.newBuildingsService.GetAllNewBuildings(id, ItemsPerPage),
+            };
+            return this.View(viewModel);
         }
 
         public IActionResult ScrapData()

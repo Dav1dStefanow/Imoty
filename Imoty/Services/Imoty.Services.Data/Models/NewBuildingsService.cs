@@ -1,42 +1,44 @@
 ﻿namespace Imoty.Services.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
     using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels.Home;
 
-    public class SalesService : ISalesService
+    public class NewBuildingsService : INewBuildingsService
     {
         private readonly IDeletableEntityRepository<Apartment> apartmentsRepository;
         private readonly IDeletableEntityRepository<House> housesRepository;
         private readonly IDeletableEntityRepository<BusinesStore> businesStoresRepository;
         private readonly IDeletableEntityRepository<Warehouse> warehousesRepository;
-        private readonly IDeletableEntityRepository<Field> fieldsRepository;
 
-        public SalesService(
+        public NewBuildingsService(
             IDeletableEntityRepository<Apartment> apartmentsRepository,
             IDeletableEntityRepository<House> housesRepository,
             IDeletableEntityRepository<BusinesStore> businesStoresRepository,
-            IDeletableEntityRepository<Warehouse> warehousesRepository,
-            IDeletableEntityRepository<Field> fieldsRepository)
+            IDeletableEntityRepository<Warehouse> warehousesRepository)
         {
             this.apartmentsRepository = apartmentsRepository;
             this.housesRepository = housesRepository;
             this.businesStoresRepository = businesStoresRepository;
             this.warehousesRepository = warehousesRepository;
-            this.fieldsRepository = fieldsRepository;
         }
 
-        public IEnumerable<PropertyForSaleRentViewModel> GetAllSales(int page, int itemsNumber = 15)
+        public IEnumerable<PropertyForSaleRentViewModel> GetAllNewBuildings(int page, int itemsNumber = 15)
         {
             List<PropertyForSaleRentViewModel> propertiesForSale = new List<PropertyForSaleRentViewModel>();
 
+            string newBuildingTag = "Ново строителство";
+
             var apartments = this.apartmentsRepository.All()
-                .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
+                .Where(x => x.Tags.Any(x => x.Name == newBuildingTag))
                 .Select(x => new PropertyForSaleRentViewModel
                 {
                     Id = x.Id,
@@ -46,8 +48,8 @@
                 }).ToList();
 
             var houses = this.housesRepository.All()
-                .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
+                .Where(x => x.Tags.Any(x => x.Name == newBuildingTag))
                 .Select(x => new PropertyForSaleRentViewModel
                 {
                     Id = x.Id,
@@ -57,8 +59,8 @@
                 }).ToList();
 
             var warehouses = this.warehousesRepository.All()
-                .Where(x => x.ForSale == true)
                .OrderByDescending(x => x.Id)
+               .Where(x => x.Tags.Any(x => x.Name == newBuildingTag))
                .Select(x => new PropertyForSaleRentViewModel
                {
                    Id = x.Id,
@@ -68,8 +70,8 @@
                }).ToList();
 
             var businesStores = this.businesStoresRepository.All()
-               .Where(x => x.ForSale == true)
                .OrderByDescending(x => x.Id)
+               .Where(x => x.Tags.Any(x => x.Name == newBuildingTag))
                .Select(x => new PropertyForSaleRentViewModel
                {
                    Id = x.Id,
@@ -77,21 +79,6 @@
                    ImageUrl = x.Images.FirstOrDefault().Extension,
                    CategoryName = nameof(BusinesStore),
                }).ToList();
-
-            var fields = this.fieldsRepository.All()
-              .OrderByDescending(x => x.Id)
-              .Select(x => new PropertyForSaleRentViewModel
-              {
-                  Id = x.Id,
-                  Type = x.Type,
-                  ImageUrl = x.Images.FirstOrDefault().Extension,
-                  CategoryName = nameof(Field),
-              }).ToList();
-
-            foreach (var field in fields)
-            {
-                propertiesForSale.Add(field);
-            }
 
             foreach (var businesStore in businesStores)
             {
@@ -174,21 +161,6 @@
                    ImageUrl = x.Images.FirstOrDefault().Extension,
                    CategoryName = nameof(BusinesStore),
                }).ToList();
-
-            var fields = this.fieldsRepository.All()
-              .OrderByDescending(x => x.Id)
-              .Select(x => new PropertyForSaleRentViewModel
-              {
-                  Id = x.Id,
-                  Type = x.Type,
-                  ImageUrl = x.Images.FirstOrDefault().Extension,
-                  CategoryName = nameof(Field),
-              }).ToList();
-
-            foreach (var field in fields)
-            {
-                propertiesForSale.Add(field);
-            }
 
             foreach (var businesStore in businesStores)
             {

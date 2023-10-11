@@ -8,26 +8,23 @@
     using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels.Home;
 
-    public class SalesService : ISalesService
+    public class RentService : IRentsService
     {
         private readonly IDeletableEntityRepository<Apartment> apartmentsRepository;
         private readonly IDeletableEntityRepository<House> housesRepository;
         private readonly IDeletableEntityRepository<BusinesStore> businesStoresRepository;
         private readonly IDeletableEntityRepository<Warehouse> warehousesRepository;
-        private readonly IDeletableEntityRepository<Field> fieldsRepository;
 
-        public SalesService(
+        public RentService(
             IDeletableEntityRepository<Apartment> apartmentsRepository,
             IDeletableEntityRepository<House> housesRepository,
             IDeletableEntityRepository<BusinesStore> businesStoresRepository,
-            IDeletableEntityRepository<Warehouse> warehousesRepository,
-            IDeletableEntityRepository<Field> fieldsRepository)
+            IDeletableEntityRepository<Warehouse> warehousesRepository)
         {
             this.apartmentsRepository = apartmentsRepository;
             this.housesRepository = housesRepository;
             this.businesStoresRepository = businesStoresRepository;
             this.warehousesRepository = warehousesRepository;
-            this.fieldsRepository = fieldsRepository;
         }
 
         public IEnumerable<PropertyForSaleRentViewModel> GetAllSales(int page, int itemsNumber = 15)
@@ -35,7 +32,7 @@
             List<PropertyForSaleRentViewModel> propertiesForSale = new List<PropertyForSaleRentViewModel>();
 
             var apartments = this.apartmentsRepository.All()
-                .Where(x => x.ForSale == true)
+                .Where(x => x.ForSale == false)
                 .OrderByDescending(x => x.Id)
                 .Select(x => new PropertyForSaleRentViewModel
                 {
@@ -46,7 +43,7 @@
                 }).ToList();
 
             var houses = this.housesRepository.All()
-                .Where(x => x.ForSale == true)
+                .Where(x => x.ForSale == false)
                 .OrderByDescending(x => x.Id)
                 .Select(x => new PropertyForSaleRentViewModel
                 {
@@ -57,7 +54,7 @@
                 }).ToList();
 
             var warehouses = this.warehousesRepository.All()
-                .Where(x => x.ForSale == true)
+                .Where(x => x.ForSale == false)
                .OrderByDescending(x => x.Id)
                .Select(x => new PropertyForSaleRentViewModel
                {
@@ -68,7 +65,7 @@
                }).ToList();
 
             var businesStores = this.businesStoresRepository.All()
-               .Where(x => x.ForSale == true)
+               .Where(x => x.ForSale == false)
                .OrderByDescending(x => x.Id)
                .Select(x => new PropertyForSaleRentViewModel
                {
@@ -77,21 +74,6 @@
                    ImageUrl = x.Images.FirstOrDefault().Extension,
                    CategoryName = nameof(BusinesStore),
                }).ToList();
-
-            var fields = this.fieldsRepository.All()
-              .OrderByDescending(x => x.Id)
-              .Select(x => new PropertyForSaleRentViewModel
-              {
-                  Id = x.Id,
-                  Type = x.Type,
-                  ImageUrl = x.Images.FirstOrDefault().Extension,
-                  CategoryName = nameof(Field),
-              }).ToList();
-
-            foreach (var field in fields)
-            {
-                propertiesForSale.Add(field);
-            }
 
             foreach (var businesStore in businesStores)
             {
@@ -174,21 +156,6 @@
                    ImageUrl = x.Images.FirstOrDefault().Extension,
                    CategoryName = nameof(BusinesStore),
                }).ToList();
-
-            var fields = this.fieldsRepository.All()
-              .OrderByDescending(x => x.Id)
-              .Select(x => new PropertyForSaleRentViewModel
-              {
-                  Id = x.Id,
-                  Type = x.Type,
-                  ImageUrl = x.Images.FirstOrDefault().Extension,
-                  CategoryName = nameof(Field),
-              }).ToList();
-
-            foreach (var field in fields)
-            {
-                propertiesForSale.Add(field);
-            }
 
             foreach (var businesStore in businesStores)
             {

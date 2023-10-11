@@ -1,6 +1,6 @@
 ﻿@using Imoty.Common;
 @using Imoty.Web.ViewModels.Home;
-@model SalesInListViewModel
+@model SalesRentsOrNBInListViewModel
 @{
     this.ViewData["Title"] = "Продажби";
 }
@@ -29,16 +29,14 @@
 
 <nav aria-label="...">
     <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link">Previous</a>
+        <li class="page-item @if(!Model.HasPreviousPage){ <text>disabled</text> }">
+            <a class="page-link" asp-action="Sales" asp-route-id="@Model.PreviousPageNum">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
         <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2</a>
+            <a class="page-link" href="#">@Model.PageNumber</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+        <li class="page-item @if(!Model.HasNextPage){ <text>disabled</text> }">
+            <a class="page-link" asp-action="Sales" asp-route-id="@Model.NextPageNum">Next</a>
         </li>
     </ul>
 </nav>
