@@ -1,7 +1,10 @@
 ﻿namespace Imoty.Services.Data
 {
+    using System.IO;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
     using Imoty.Data.Models.ImageModels;
@@ -10,6 +13,7 @@
 
     public class AddFieldService : IAddFieldService
     {
+        private readonly string[] allowedExtentions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<Field> fieldsRepository;
         private readonly IRepository<FieldImage> fieldImagesRepository;
         private readonly TownValidationService townValidationService;
@@ -30,7 +34,7 @@
             this.tagRepository = tagRepository;
         }
 
-        public async Task AddFieldAsync(AddFieldViewModel viewModel, string userId)
+        public async Task AddFieldAsync(AddFieldViewModel viewModel, string userId, string imagePath)
         {
             Town town = this.townValidationService.ValidateTown(viewModel);
 
@@ -46,6 +50,31 @@
                 SquareMeters = viewModel.SquareMeters,
                 AddedByUserId = userId,
             };
+
+            foreach (var image in viewModel.Images)
+            {
+                string extension = Path.GetExtension(image.FileName);
+                if (!this.allowedExtentions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
+
+                var dbImage = new FieldImage
+                {
+                    AddedByUserId = userId,
+                    Field = input,
+                    Extension = extension,
+                };
+                input.Images.Add(dbImage);
+                await this.fieldImagesRepository.AddAsync(dbImage);
+
+                Directory.CreateDirectory($"{imagePath}/fields/");
+                var physicalPath = $"{imagePath}/fields/{dbImage.Id}.{extension}";
+                using (Stream fileStream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+            }
 
             foreach (var tagg in viewModel.Tags)
             {

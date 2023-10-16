@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
+
     public class AddHouseViewModel : IValidatableObject
     {
         [Required]
@@ -59,6 +61,8 @@
            "[A-Z][a-z]+",
            ErrorMessage = "Construction name has to start with upper case letter.")]
         public string Construction { get; set; }
+
+        public IEnumerable<IFormFile> Images { get; set; }
 
         public IEnumerable<TagInputModel> Tags { get; set; }
 

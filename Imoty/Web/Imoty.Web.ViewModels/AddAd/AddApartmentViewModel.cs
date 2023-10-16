@@ -8,6 +8,8 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
+
     public class AddApartmentViewModel : IValidatableObject
     {
         [RegularExpression(
@@ -64,6 +66,8 @@
          "[A-Z][a-z]+",
          ErrorMessage = "Construction name has to start with upper case letter.")]
         public string Construction { get; set; }
+
+        public IEnumerable<IFormFile> Images { get; set; }
 
         public IEnumerable<TagInputModel> Tags { get; set; }
 

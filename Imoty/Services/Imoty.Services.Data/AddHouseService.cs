@@ -1,5 +1,7 @@
 ﻿namespace Imoty.Services.Data
 {
+    using System.IO;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -12,6 +14,7 @@
 
     public class AddHouseService : IAddHouseService
     {
+        private readonly string[] AllowedExtentions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<House> housesRepository;
         private readonly IRepository<HouseImage> houseImagesRepository;
         private readonly IDeletableEntityRepository<District> districtsRepository;
@@ -39,7 +42,7 @@
             this.tagRepository = tagRepository;
         }
 
-        public async Task AddHouseAsync(AddHouseViewModel viewModel, string userId)
+        public async Task AddHouseAsync(AddHouseViewModel viewModel, string userId, string imagePath)
         {
             Construction construction = this.costructionValidationService.ValidateConstruction(viewModel);
 
@@ -70,6 +73,31 @@
             else
             {
                 input.ForSale = true;
+            }
+
+            foreach (var image in viewModel.Images)
+            {
+                string extension = Path.GetExtension(image.FileName);
+                if (!this.AllowedExtentions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
+
+                var dbImage = new HouseImage
+                {
+                    AddedByUserId = userId,
+                    House = input,
+                    Extension = extension,
+                };
+                input.Images.Add(dbImage);
+                await this.houseImagesRepository.AddAsync(dbImage);
+
+                Directory.CreateDirectory($"{imagePath}/houses/");
+                var physicalPath = $"{imagePath}/houses/{dbImage.Id}.{extension}";
+                using (Stream fileStream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
             }
 
             foreach (var tagg in viewModel.Tags)

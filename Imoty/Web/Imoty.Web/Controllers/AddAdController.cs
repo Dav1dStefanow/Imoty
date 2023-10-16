@@ -1,11 +1,14 @@
 ﻿namespace Imoty.Web.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using Imoty.Data.Models;
     using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels.AddAd;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +20,7 @@
         private readonly IAddBusinesStoreService addBusinesStoreService;
         private readonly IAddWarehouseService addWarehouseService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IWebHostEnvironment environment;
 
         public AddAdController(
             IAddApartmentService addApartmentService,
@@ -24,7 +28,8 @@
             IAddFieldService addFieldService,
             IAddBusinesStoreService addBusinesStoreService,
             IAddWarehouseService addWarehouseService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IWebHostEnvironment environment)
         {
             this.addApartmentService = addApartmentService;
             this.addHouseService = addHouseService;
@@ -32,6 +37,7 @@
             this.addBusinesStoreService = addBusinesStoreService;
             this.addWarehouseService = addWarehouseService;
             this.userManager = userManager;
+            this.environment = environment;
         }
 
         [Authorize]
@@ -56,7 +62,15 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.addApartmentService.AddApartmentAsync(input, user.Id);
+            try
+            {
+                await this.addApartmentService.AddApartmentAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(input);
+            }
 
             return this.RedirectToAction("ThankYou");
         }
@@ -77,7 +91,15 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.addHouseService.AddHouseAsync(input, user.Id);
+            try
+            {
+                await this.addHouseService.AddHouseAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(input);
+            }
 
             return this.RedirectToAction("ThankYou");
         }
@@ -98,7 +120,15 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.addWarehouseService.AddWarehouseAsync(input, user.Id);
+            try
+            {
+                await this.addWarehouseService.AddWarehouseAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(input);
+            }
 
             return this.RedirectToAction("ThankYou");
         }
@@ -119,7 +149,15 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.addBusinesStoreService.AddBusinesStoreAsync(input, user.Id);
+            try
+            {
+                await this.addBusinesStoreService.AddBusinesStoreAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(input);
+            }
 
             return this.RedirectToAction("ThankYou");
         }
@@ -140,7 +178,15 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.addFieldService.AddFieldAsync(input, user.Id);
+            try
+            {
+                await this.addFieldService.AddFieldAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(input);
+            }
 
             return this.RedirectToAction("ThankYou");
         }

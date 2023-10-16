@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
+
     public class AddBusinesStoreViewModel
     {
         [Required]
@@ -52,6 +54,9 @@
         [RegularExpression(
            "[A-Z][a-z]+",
            ErrorMessage = "Construction has to start with upper case letter.")]
+
+        public IEnumerable<IFormFile> Images { get; set; }
+
         public string Construction { get; set; }
 
         public IEnumerable<TagInputModel> Tags { get; set; }

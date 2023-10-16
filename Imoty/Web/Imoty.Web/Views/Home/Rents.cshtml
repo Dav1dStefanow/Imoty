@@ -13,13 +13,13 @@
 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
     @foreach (var property in this.Model.PropertiesForSale)
     {
-        <div class="card col-md-4">
+        <div class="card col-md-4 card">
             <img src="@property.ImageUrl" class="card-img-top" alt="...">
 
             <div class="card-body">
                 <h5 class="card-title">@property.Type</h5>
                 <p class="card-text">@property.CategoryName</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="ViewProperty">View the @property.CategoryName</a>
             </div>
         </div>
     }
@@ -34,9 +34,29 @@
  }">
             <a class="page-link" asp-action="Sales" asp-route-id="@Model.PreviousPageNum">Previous</a>
         </li>
+        @for (int i = Model.PageNumber - 3; i <= Model.PageNumber - 1; i++)
+        {
+            if (i > 0)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Sales" asp-route-id="@i">@i</a>
+
+                </li>
+            }
+        }
         <li class="page-item active" aria-current="page">
             <a class="page-link" href="#">@Model.PageNumber</a>
         </li>
+        @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 3; i++)
+        {
+            if (i <= Model.PagesCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Sales" asp-route-id="@i">@i</a>
+
+                </li>
+            }
+        }
         <li class="page-item @if(!Model.HasNextPage){
         <text>disabled</text>
  }">

@@ -6,6 +6,6 @@
 
     public interface IAddHouseService
     {
-        Task AddHouseAsync(AddHouseViewModel viewModel, string userId);
+        Task AddHouseAsync(AddHouseViewModel viewModel, string userId, string imagePath);
     }
 }

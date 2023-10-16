@@ -1,5 +1,8 @@
 ﻿namespace Imoty.Services.Data
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -11,6 +14,7 @@
 
     public class AddWarehouseService : IAddWarehouseService
     {
+        private readonly string[] allowedExtentions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<Warehouse> warehousesRepository;
         private readonly IRepository<WarehouseImage> warehouseImagesRepository;
         private readonly CostructionValidationService costructionValidationService;
@@ -34,7 +38,7 @@
             this.tagRepository = tagRepository;
         }
 
-        public async Task AddWarehouseAsync(AddWarehouseViewModel viewModel, string userId)
+        public async Task AddWarehouseAsync(AddWarehouseViewModel viewModel, string userId, string imagePath)
         {
             Construction construction = this.costructionValidationService.ValidateConstruction(viewModel);
 
@@ -63,6 +67,31 @@
                 input.ForSale = true;
             }
 
+            foreach (var image in viewModel.Images)
+            {
+                string extension = Path.GetExtension(image.FileName);
+                if (!this.allowedExtentions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
+
+                var dbImage = new WarehouseImage
+                {
+                    AddedByUserId = userId,
+                    Warehouse = input,
+                    Extension = extension,
+                };
+                input.Images.Add(dbImage);
+                await this.warehouseImagesRepository.AddAsync(dbImage);
+
+                Directory.CreateDirectory($"{imagePath}/warehouses/");
+                var physicalPath = $"{imagePath}/warehouses/{dbImage.Id}.{extension}";
+                using (Stream fileStream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+            }
+
             foreach (var tagg in viewModel.Tags)
             {
                 var tag = this.tagRepository.All().FirstOrDefault(t => t.Name == tagg.TagName);
@@ -75,6 +104,7 @@
                 input.Tags.Add(tag);
             }
 
+            await this.warehouseImagesRepository.SaveChangesAsync();
             await this.tagRepository.SaveChangesAsync();
             await this.warehousesRepository.AddAsync(input);
             await this.warehousesRepository.SaveChangesAsync();

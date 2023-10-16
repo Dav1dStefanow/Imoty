@@ -1,7 +1,10 @@
 ﻿namespace Imoty.Services.Data
 {
+    using System.IO;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
     using Imoty.Data.Models.ImageModels;
@@ -10,6 +13,7 @@
 
     public class AddBusinesStoreService : IAddBusinesStoreService
     {
+        private readonly string[] allowedExtentions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<BusinesStore> businesStoresRepository;
         private readonly IRepository<BusinesStoreImage> businesStoreImagesRepository;
         private readonly CostructionValidationService costructionValidationService;
@@ -33,7 +37,7 @@
             this.tagRepository = tagRepository;
         }
 
-        public async Task AddBusinesStoreAsync(AddBusinesStoreViewModel viewModel, string userId)
+        public async Task AddBusinesStoreAsync(AddBusinesStoreViewModel viewModel, string userId, string imagePath)
         {
             Construction construction = this.costructionValidationService.ValidateConstruction(viewModel);
 
@@ -62,6 +66,31 @@
             else
             {
                 input.ForSale = true;
+            }
+
+            foreach (var image in viewModel.Images)
+            {
+                string extension = Path.GetExtension(image.FileName);
+                if (!this.allowedExtentions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
+
+                var dbImage = new BusinesStoreImage
+                {
+                    AddedByUserId = userId,
+                    BusinesStore = input,
+                    Extension = extension,
+                };
+                input.Images.Add(dbImage);
+                await this.businesStoreImagesRepository.AddAsync(dbImage);
+
+                Directory.CreateDirectory($"{imagePath}/businesStores/");
+                var physicalPath = $"{imagePath}/businesStores/{dbImage.Id}.{extension}";
+                using (Stream fileStream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
             }
 
             foreach (var tagg in viewModel.Tags)

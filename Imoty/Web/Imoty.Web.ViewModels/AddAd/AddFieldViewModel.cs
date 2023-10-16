@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
+
     public class AddFieldViewModel
     {
         [Required]
@@ -38,6 +40,9 @@
         [Required]
         [MaxLength(1000, ErrorMessage = "Description name can't be more than 1000 digits.")]
         [MinLength(35, ErrorMessage = "Description name has to be at least 35 digits long.")]
+
+        public IEnumerable<IFormFile> Images { get; set; }
+
         public string Description { get; set; }
 
         public IEnumerable<TagInputModel> Tags { get; set; }
