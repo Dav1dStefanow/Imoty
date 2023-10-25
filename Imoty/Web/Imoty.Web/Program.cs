@@ -76,6 +76,7 @@
             services.AddTransient<IImotyBgScraperService, ImotyBgScraperService>();
             services.AddTransient<IRentsService, RentService>();
             services.AddTransient<INewBuildingsService, NewBuildingsService>();
+            services.AddTransient<IPropertyService, PropertyService>();
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();

@@ -14,7 +14,7 @@
 
     public class AddHouseService : IAddHouseService
     {
-        private readonly string[] AllowedExtentions = new[] { "jpg", "png", "gif" };
+        private readonly string[] allowedExtentions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<House> housesRepository;
         private readonly IRepository<HouseImage> houseImagesRepository;
         private readonly IDeletableEntityRepository<District> districtsRepository;
@@ -78,7 +78,7 @@
             foreach (var image in viewModel.Images)
             {
                 string extension = Path.GetExtension(image.FileName);
-                if (!this.AllowedExtentions.Any(x => extension.EndsWith(x)))
+                if (!this.allowedExtentions.Any(x => extension.EndsWith(x)))
                 {
                     throw new Exception($"Invalid image extension {extension}");
                 }

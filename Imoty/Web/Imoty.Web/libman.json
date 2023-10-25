@@ -35,6 +35,17 @@
         "dist/jquery.validate.unobtrusive.js",
         "dist/jquery.validate.unobtrusive.min.js"
       ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "@fancyapps/ui@4.0.30",
+      "destination": "wwwroot/lib/fancyapps/ui/",
+      "files": [
+        "dist/fancybox.css",
+        "dist/fancybox.min.css",
+        "dist/fancybox.umd.js",
+        "dist/fancybox.umd.min.js"
+      ]
     }
   ]
 }

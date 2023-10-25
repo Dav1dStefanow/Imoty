@@ -19,7 +19,7 @@
             <div class="card-body">
                 <h5 class="card-title">@property.Type</h5>
                 <p class="card-text">@property.CategoryName</p>
-                <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="ViewProperty">View the @property.CategoryName</a>
+                <a class="btn btn-primary" asp-action="ViewProperty" asp-route-id="@property.Id" asp-route-category="@property.CategoryName">View the @property.CategoryName</a>
             </div>
         </div>
     }
@@ -28,18 +28,18 @@
 <hr />
 
 <nav aria-label="...">
-    <ul class="pagination justify-content-center">
+    <ul class="pagination justify-content-center pb-5">
         <li class="page-item @if(!Model.HasPreviousPage){
         <text>disabled</text>
  }">
-            <a class="page-link" asp-action="Sales" asp-route-id="@Model.PreviousPageNum">Previous</a>
+            <a class="page-link" asp-action="Rents" asp-route-id="@Model.PreviousPageNum">Previous</a>
         </li>
         @for (int i = Model.PageNumber - 3; i <= Model.PageNumber - 1; i++)
         {
             if (i > 0)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="Sales" asp-route-id="@i">@i</a>
+                    <a class="page-link" asp-action="Rents" asp-route-id="@i">@i</a>
 
                 </li>
             }
@@ -52,7 +52,7 @@
             if (i <= Model.PagesCount)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="Sales" asp-route-id="@i">@i</a>
+                    <a class="page-link" asp-action="Rents" asp-route-id="@i">@i</a>
 
                 </li>
             }
@@ -60,7 +60,7 @@
         <li class="page-item @if(!Model.HasNextPage){
         <text>disabled</text>
  }">
-            <a class="page-link" asp-action="Sales" asp-route-id="@Model.NextPageNum">Next</a>
+            <a class="page-link" asp-action="Rents" asp-route-id="@Model.NextPageNum">Next</a>
         </li>
     </ul>
 </nav>

@@ -1,21 +1,13 @@
 ﻿namespace Imoty.Web.Controllers
 {
-    using System;
     using System.Diagnostics;
-    using System.Linq;
     using System.Threading.Tasks;
 
-    using Imoty.Data;
-    using Imoty.Data.Common.Repositories;
-    using Imoty.Data.Models;
-    using Imoty.Data.Models.ImageModels;
     using Imoty.Services;
-    using Imoty.Services.Data;
     using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels;
     using Imoty.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
 
     public class HomeController : BaseController
     {
@@ -23,17 +15,20 @@
         private readonly IRentsService rentsService;
         private readonly INewBuildingsService newBuildingsService;
         private readonly IImotyBgScraperService imotyBgScraperService;
+        private readonly IPropertyService propertyService;
 
         public HomeController(
             ISalesService salesService,
             IRentsService rentsService,
             INewBuildingsService newBuildingsService,
-            IImotyBgScraperService imotyBgScraperService)
+            IImotyBgScraperService imotyBgScraperService,
+            IPropertyService propertyService)
         {
             this.salesService = salesService;
             this.rentsService = rentsService;
             this.newBuildingsService = newBuildingsService;
             this.imotyBgScraperService = imotyBgScraperService;
+            this.propertyService = propertyService;
         }
 
         public IActionResult Index()
@@ -93,6 +88,11 @@
             return this.View();
         }
 
+        public IActionResult About()
+        {
+            return this.View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> ScrapData(ScrapDataViewModel viewModel)
         {
@@ -105,9 +105,10 @@
             return this.RedirectToAction("ThankYou");
         }
 
-        public IActionResult ViewProperty()
+        public IActionResult ViewProperty(int id, string category)
         {
-            return this.View();
+            var property = this.propertyService.GetByIdAndCategory(id, category);
+            return this.View(property);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
