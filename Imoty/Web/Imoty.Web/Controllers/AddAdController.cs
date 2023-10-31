@@ -72,7 +72,12 @@
                 return this.View(input);
             }
 
-            return this.RedirectToAction("ThankYou");
+            return this.RedirectToAction(nameof(this.AddedApartmentView), new { input });
+        }
+
+        public IActionResult AddedApartmentView(AddApartmentViewModel view)
+        {
+            return this.View(view);
         }
 
         [Authorize]
@@ -101,7 +106,12 @@
                 return this.View(input);
             }
 
-            return this.RedirectToAction("ThankYou");
+            return this.RedirectToAction(nameof(this.AddedHouseView), new { input });
+        }
+
+        public IActionResult AddedHouseView(AddHouseViewModel view)
+        {
+            return this.View(view);
         }
 
         [Authorize]
@@ -130,7 +140,12 @@
                 return this.View(input);
             }
 
-            return this.RedirectToAction("ThankYou");
+            return this.RedirectToAction(nameof(this.AddedWareHouseView), new { input });
+        }
+
+        public IActionResult AddedWareHouseView(AddWarehouseViewModel view)
+        {
+            return this.View(view);
         }
 
         [Authorize]
@@ -159,7 +174,12 @@
                 return this.View(input);
             }
 
-            return this.RedirectToAction("ThankYou");
+            return this.RedirectToAction(nameof(this.AddedBusinesStoreView), new { input });
+        }
+
+        public IActionResult AddedBusinesStoreView(AddBusinesStoreViewModel view)
+        {
+            return this.View(view);
         }
 
         [Authorize]
@@ -188,12 +208,12 @@
                 return this.View(input);
             }
 
-            return this.RedirectToAction("ThankYou");
+            return this.RedirectToAction(nameof(this.AddedFieldView), new { input });
         }
 
-        public IActionResult ThankYou()
+        public IActionResult AddedFieldView(AddFieldViewModel view)
         {
-            return this.View();
+            return this.View(view);
         }
     }
 }

@@ -1,0 +1,111 @@
+﻿@using Imoty.Web.ViewModels.AddAd;
+@model AddFieldViewModel
+@{
+    this.ViewData["Title"] = "Cur property";
+}
+
+<a class="alert-success">Thanks for contributing to our site!</a>
+
+<div class="hero page-inner overlay"
+     style="background-image: url('images/hero_bg_3.jpg')">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading" data-aos="fade-up">
+                    @Model.Type
+                </h1>
+
+                <nav aria-label="breadcrumb"
+                     data-aos="fade-up"
+                     data-aos-delay="200">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="properties.html">Properties</a>
+                        </li>
+                        <li class="breadcrumb-item active text-white-50"
+                            aria-current="page">
+                            Field
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-7">
+
+                @foreach (var image in Model.Images)
+                {
+                    <a data-fancybox="gallery" href="@image"><img data-src="@image" src="@image" alt="Image" width="350" height="175" class="img-fluid"></a>
+                }
+            </div>
+            <div class="col-lg-4">
+                <h2 class="heading text-primary">@Model.District</h2>
+                <p class="meta">@Model.Town, Bulgaria</p>
+                <p class="text-black-50">
+                    @Model.Description
+                </p>
+
+                <div class="d-block agent-box p-5">
+                    <div class="col-lg-10 col-xl-100">
+                        <div class="row row-100">
+                            <div class="col-md-6 col-lg-12">
+                                <div class="block-info">
+
+                                    <h4 class="ttitle">@Model.Type</h4>
+
+                                    <table class="details_table">
+                                        <tr class="list-terms-inline">
+                                            <td>Town</td>
+                                            <td>@Model.Town</td>
+                                        </tr>
+                                        <tr class="list-terms-inline">
+                                            <td>District</td>
+                                            <td>@Model.District</td>
+                                        </tr>
+                                        <tr class="list-terms-inline">
+                                            <td>Price</td>
+                                            <td>@Model.Price EUR</td>
+                                        </tr>
+                                        <tr class="list-terms-inline">
+                                            <td>Square meters</td>
+                                            <td>@Model.SquareMeters Sq.m.</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-block agent-box p-5">
+                    <div class="col-lg-10 col-xl-200">
+                        <div class="row row-100">
+                            <div class="col-md-6 col-lg-12">
+                                <div class="block-info">
+
+                                    <h4 class="ttitle">Tags</h4>
+
+                                    <table class="details_table">
+                                        @foreach (var tag in Model.Tags)
+                                        {
+                                            <tr class="list-terms-inline">
+                                                <td>@tag</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
