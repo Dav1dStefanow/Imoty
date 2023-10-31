@@ -7,7 +7,9 @@
     using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels;
     using Imoty.Web.ViewModels.Home;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
     public class HomeController : BaseController
     {
@@ -33,11 +35,28 @@
 
         public IActionResult Index()
         {
+            var model = new IndexViewModel()
+            {
+                Properties = this.propertyService.GetRandom(10),
+            };
+            return this.View(model);
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id, string category)
+        {
             return this.View();
         }
 
-        public IActionResult ThankYou()
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, string category, EditPropertyViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
             return this.View();
         }
 
