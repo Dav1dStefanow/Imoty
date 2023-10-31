@@ -42,24 +42,6 @@
             return this.View(model);
         }
 
-        [Authorize]
-        public IActionResult Edit(int id, string category)
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        [Authorize]
-        public IActionResult Edit(int id, string category, EditPropertyViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View();
-            }
-
-            return this.View();
-        }
-
         public IActionResult Sales(int id = 1)
         {
             const int ItemsPerPage = 15;
