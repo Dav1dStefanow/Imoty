@@ -10,7 +10,7 @@
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-9 text-center mt-5">
                 <h1 class="heading" data-aos="fade-up">
-                    @Model.DistrictName
+                    @Model.Type
                 </h1>
 
                 <nav aria-label="breadcrumb"
@@ -23,7 +23,7 @@
                         </li>
                         <li class="breadcrumb-item active text-white-50"
                             aria-current="page">
-                            @Model.DistrictName
+                            @Model.CategoryName
                         </li>
                     </ol>
                 </nav>
@@ -81,12 +81,77 @@
                                             <td>Square meters</td>
                                             <td>@Model.SquareMeters Sq.m.</td>
                                         </tr>
+                                        @if (Model.BedRooms != 0)
+                                        {
+                                            <tr class="list-terms-inline">
+                                                <td>Bed rooms</td>
+                                                <td>@Model.BedRooms</td>
+                                            </tr>
+                                        }
+                                        @if (Model.BathRooms != 0)
+                                        {
+                                            <tr class="list-terms-inline">
+                                                <td>Bath rooms</td>
+                                                <td>@Model.BathRooms</td>
+                                            </tr>
+                                        }
+                                        @if (Model.ConstructionName != null)
+                                        {
+                                            <tr class="list-terms-inline">
+                                                <td>Construction Name</td>
+                                                <td>@Model.ConstructionName</td>
+                                            </tr>
+                                        }
+                                        @if (Model.TotalFloors != 0)
+                                        {
+                                            <tr class="list-terms-inline">
+                                                <td>Total floors</td>
+                                                <td>@Model.TotalFloors</td>
+                                            </tr>
+                                        }
+                                        @if (Model.Floor != 0)
+                                        {
+                                            <tr class="list-terms-inline">
+                                                <td>Floor</td>
+                                                <td>@Model.Floor</td>
+                                            </tr>
+                                        }
+                                        @if (Model.BuiltUpArea != 0)
+                                        {
+                                            <tr class="list-terms-inline">
+                                                <td>Built-up area</td>
+                                                <td>@Model.BuiltUpArea</td>
+                                            </tr>
+                                        }
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="d-block agent-box p-5">
+                    <div class="col-lg-10 col-xl-200">
+                        <div class="row row-100">
+                            <div class="col-md-6 col-lg-12">
+                                <div class="block-info">
+
+                                    <h4 class="ttitle">Tags</h4>
+
+                                    <table class="details_table">
+                                        @foreach (var tag in Model.Tags)
+                                        {
+                                            <tr class="list-terms-inline">
+                                                <td>@tag</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

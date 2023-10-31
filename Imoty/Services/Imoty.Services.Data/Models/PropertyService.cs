@@ -1,14 +1,14 @@
 ﻿namespace Imoty.Services.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
-    using Imoty.Data.Models.ImageModels;
     using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels.Home;
     using Microsoft.EntityFrameworkCore;
-    using static System.Net.Mime.MediaTypeNames;
 
     public class PropertyService : IPropertyService
     {
@@ -184,6 +184,92 @@
             }
 
             return singleProperty;
+        }
+
+        public IEnumerable<PropertyForSaleRentViewModel> GetRandom(int count)
+        {
+            List<PropertyForSaleRentViewModel> propertiesForSale = new List<PropertyForSaleRentViewModel>();
+
+            var apartments = this.apartmentRepository.All()
+                .Where(x => x.ForSale == true)
+                .OrderByDescending(x => x.Id)
+                .Select(x => new PropertyForSaleRentViewModel
+                {
+                    Id = x.Id,
+                    ImageUrl = x.Images.FirstOrDefault().Extension,
+                    Type = x.Type,
+                    CategoryName = nameof(Apartment),
+                }).ToList();
+
+            var houses = this.houseRepository.All()
+                .Where(x => x.ForSale == true)
+                .OrderByDescending(x => x.Id)
+                .Select(x => new PropertyForSaleRentViewModel
+                {
+                    Id = x.Id,
+                    Type = x.Type,
+                    ImageUrl = x.Images.FirstOrDefault().Extension,
+                    CategoryName = nameof(House),
+                }).ToList();
+
+            var warehouses = this.warehouseRepository.All()
+                .Where(x => x.ForSale == true)
+               .OrderByDescending(x => x.Id)
+               .Select(x => new PropertyForSaleRentViewModel
+               {
+                   Id = x.Id,
+                   Type = x.Type,
+                   ImageUrl = x.Images.FirstOrDefault().Extension,
+                   CategoryName = nameof(Warehouse),
+               }).ToList();
+
+            var businesStores = this.businesStoreRepository.All()
+               .Where(x => x.ForSale == true)
+               .OrderByDescending(x => x.Id)
+               .Select(x => new PropertyForSaleRentViewModel
+               {
+                   Id = x.Id,
+                   Type = x.Type,
+                   ImageUrl = x.Images.FirstOrDefault().Extension,
+                   CategoryName = nameof(BusinesStore),
+               }).ToList();
+
+            var fields = this.fieldRepository.All()
+              .OrderByDescending(x => x.Id)
+              .Select(x => new PropertyForSaleRentViewModel
+              {
+                  Id = x.Id,
+                  Type = x.Type,
+                  ImageUrl = x.Images.FirstOrDefault().Extension,
+                  CategoryName = nameof(Field),
+              }).ToList();
+
+            foreach (var field in fields)
+            {
+                propertiesForSale.Add(field);
+            }
+
+            foreach (var businesStore in businesStores)
+            {
+                propertiesForSale.Add(businesStore);
+            }
+
+            foreach (var apartment in apartments)
+            {
+                propertiesForSale.Add(apartment);
+            }
+
+            foreach (var house in houses)
+            {
+                propertiesForSale.Add(house);
+            }
+
+            foreach (var warehouse in warehouses)
+            {
+                propertiesForSale.Add(warehouse);
+            }
+
+            return propertiesForSale.OrderBy(x => Guid.NewGuid()).Take(count).ToList();
         }
     }
 }

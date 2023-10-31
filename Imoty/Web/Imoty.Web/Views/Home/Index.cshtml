@@ -1,4 +1,6 @@
-﻿@using Imoty.Common;
+﻿@model IndexViewModel
+@using Imoty.Common;
+@using Imoty.Web.ViewModels.Home;
 @{
     this.ViewData["Title"] = "Home";
 }
@@ -16,14 +18,17 @@
 
 <hr />
 
-<table class="table table-bordered table-sm table-hover">
-    @for (int i = 1; i < 11; i++)
+<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 pb-5">
+    @foreach (var property in this.Model.Properties)
     {
-        <tr>
-            <th>@i</th>
-            <th>@(i * i)</th>
-        </tr>
-    }
-</table>
+        <div class="card col-md-4 card">
+            <img src="@property.ImageUrl" class="card-img-top" alt="...">
 
-<hr />
+            <div class="card-body">
+                <h5 class="card-title">@property.Type</h5>
+                <p class="card-text">@property.CategoryName</p>
+                <a class="btn btn-primary" asp-action="ViewProperty" asp-route-id="@property.Id" asp-route-category="@property.CategoryName">View the @property.CategoryName</a>
+            </div>
+        </div>
+    }
+</div>
