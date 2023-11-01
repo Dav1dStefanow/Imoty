@@ -8,7 +8,7 @@
 
     public class IndexViewModel
     {
-        public IEnumerable<PropertyForSaleRentViewModel> Properties { get; set; }
+        public IEnumerable<PropertyForSaleRentInListViewModel> Properties { get; set; }
 
     }
 }

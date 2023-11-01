@@ -6,7 +6,7 @@
 
     public interface IRentsService
     {
-        IEnumerable<PropertyForSaleRentViewModel> GetAllSales(int page, int itemsNumber = 15);
+        IEnumerable<PropertyForSaleRentInListViewModel> GetAllSales(int page, int itemsNumber = 15);
 
         int GetCount();
     }

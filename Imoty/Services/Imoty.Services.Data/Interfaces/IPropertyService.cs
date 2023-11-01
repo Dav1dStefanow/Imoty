@@ -1,6 +1,5 @@
 ﻿namespace Imoty.Services.Data.Interfaces
 {
-    using System.Collections;
     using System.Collections.Generic;
 
     using Imoty.Web.ViewModels.Home;
@@ -9,6 +8,8 @@
     {
         SinglePropertyViewModel GetByIdAndCategory(int id, string category);
 
-        IEnumerable<PropertyForSaleRentViewModel> GetRandom(int count);
+        IEnumerable<PropertyForSaleRentInListViewModel> GetRandom(int count);
+
+        IEnumerable<PropertyForSaleRentInListViewModel> GetByTags(IEnumerable<int> tagIds);
     }
 }

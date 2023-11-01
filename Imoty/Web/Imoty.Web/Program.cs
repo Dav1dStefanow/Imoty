@@ -77,6 +77,7 @@
             services.AddTransient<IRentsService, RentService>();
             services.AddTransient<INewBuildingsService, NewBuildingsService>();
             services.AddTransient<IPropertyService, PropertyService>();
+            services.AddTransient<ITagService, TagService>();
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();

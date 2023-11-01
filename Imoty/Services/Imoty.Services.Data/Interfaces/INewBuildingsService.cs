@@ -6,7 +6,7 @@
 
     public interface INewBuildingsService
     {
-        IEnumerable<PropertyForSaleRentViewModel> GetAllNewBuildings(int page, int itemsNumber = 15);
+        IEnumerable<PropertyForSaleRentInListViewModel> GetAllNewBuildings(int page, int itemsNumber = 15);
 
         int GetCount();
     }

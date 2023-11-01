@@ -1,12 +1,11 @@
-﻿@model IndexViewModel
+﻿@using Imoty.Web.ViewModels.Search;
+@model ListViewModel
 @using Imoty.Common;
-@using Imoty.Web.ViewModels.Home;
 @{
-    this.ViewData["Title"] = "Home";
+    this.ViewData["Title"] = "Search List";
 }
-
 <div class="text-center">
-    <h2>Welcome to @GlobalConstants.SystemName</h2>
+    <h1>@this.ViewData["Title"]</h1>
 </div>
 
 <hr />
@@ -14,7 +13,7 @@
 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 pb-5">
     @foreach (var property in this.Model.Properties)
     {
-        <div class="card col-md-4 card">
+        <div class="card col-md-4">
             <img src="@property.ImageUrl" class="card-img-top" alt="...">
 
             <div class="card-body">

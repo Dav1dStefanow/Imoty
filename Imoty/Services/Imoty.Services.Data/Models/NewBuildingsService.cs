@@ -30,16 +30,16 @@
             this.warehousesRepository = warehousesRepository;
         }
 
-        public IEnumerable<PropertyForSaleRentViewModel> GetAllNewBuildings(int page, int itemsNumber = 15)
+        public IEnumerable<PropertyForSaleRentInListViewModel> GetAllNewBuildings(int page, int itemsNumber = 15)
         {
-            List<PropertyForSaleRentViewModel> propertiesForSale = new List<PropertyForSaleRentViewModel>();
+            List<PropertyForSaleRentInListViewModel> propertiesForSale = new List<PropertyForSaleRentInListViewModel>();
 
             string newBuildingTag = "Ново строителство";
 
             var apartments = this.apartmentsRepository.All()
                 .OrderByDescending(x => x.Id)
                 .Where(x => x.Tags.Any(x => x.Name == newBuildingTag))
-                .Select(x => new PropertyForSaleRentViewModel
+                .Select(x => new PropertyForSaleRentInListViewModel
                 {
                     Id = x.Id,
                     ImageUrl = x.Images.FirstOrDefault().Extension,
@@ -50,7 +50,7 @@
             var houses = this.housesRepository.All()
                 .OrderByDescending(x => x.Id)
                 .Where(x => x.Tags.Any(x => x.Name == newBuildingTag))
-                .Select(x => new PropertyForSaleRentViewModel
+                .Select(x => new PropertyForSaleRentInListViewModel
                 {
                     Id = x.Id,
                     Type = x.Type,
@@ -61,7 +61,7 @@
             var warehouses = this.warehousesRepository.All()
                .OrderByDescending(x => x.Id)
                .Where(x => x.Tags.Any(x => x.Name == newBuildingTag))
-               .Select(x => new PropertyForSaleRentViewModel
+               .Select(x => new PropertyForSaleRentInListViewModel
                {
                    Id = x.Id,
                    Type = x.Type,
@@ -72,7 +72,7 @@
             var businesStores = this.businesStoresRepository.All()
                .OrderByDescending(x => x.Id)
                .Where(x => x.Tags.Any(x => x.Name == newBuildingTag))
-               .Select(x => new PropertyForSaleRentViewModel
+               .Select(x => new PropertyForSaleRentInListViewModel
                {
                    Id = x.Id,
                    Type = x.Type,
@@ -103,7 +103,7 @@
             var allProps = propertiesForSale
                 .OrderByDescending(x => x.Id)
                 .Skip((page - 1) * itemsNumber).Take(itemsNumber)
-                .Select(x => new PropertyForSaleRentViewModel
+                .Select(x => new PropertyForSaleRentInListViewModel
                 {
                     ImageUrl = x.ImageUrl,
                     CategoryName = x.CategoryName,
@@ -117,12 +117,12 @@
 
         public int GetCount()
         {
-            List<PropertyForSaleRentViewModel> propertiesForSale = new List<PropertyForSaleRentViewModel>();
+            List<PropertyForSaleRentInListViewModel> propertiesForSale = new List<PropertyForSaleRentInListViewModel>();
 
             var apartments = this.apartmentsRepository.All()
                 .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentViewModel
+                .Select(x => new PropertyForSaleRentInListViewModel
                 {
                     Id = x.Id,
                     ImageUrl = x.Images.FirstOrDefault().Extension,
@@ -133,7 +133,7 @@
             var houses = this.housesRepository.All()
                 .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentViewModel
+                .Select(x => new PropertyForSaleRentInListViewModel
                 {
                     Id = x.Id,
                     ImageUrl = x.Images.FirstOrDefault().Extension,
@@ -143,7 +143,7 @@
             var warehouses = this.warehousesRepository.All()
                 .Where(x => x.ForSale == true)
                .OrderByDescending(x => x.Id)
-               .Select(x => new PropertyForSaleRentViewModel
+               .Select(x => new PropertyForSaleRentInListViewModel
                {
                    Id = x.Id,
                    Type = x.Type,
@@ -154,7 +154,7 @@
             var businesStores = this.businesStoresRepository.All()
                .Where(x => x.ForSale == true)
                .OrderByDescending(x => x.Id)
-               .Select(x => new PropertyForSaleRentViewModel
+               .Select(x => new PropertyForSaleRentInListViewModel
                {
                    Id = x.Id,
                    Type = x.Type,
@@ -184,7 +184,7 @@
 
             var allProps = propertiesForSale
                 .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentViewModel
+                .Select(x => new PropertyForSaleRentInListViewModel
                 {
                     ImageUrl = x.ImageUrl,
                     CategoryName = x.CategoryName,

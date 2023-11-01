@@ -186,14 +186,110 @@
             return singleProperty;
         }
 
-        public IEnumerable<PropertyForSaleRentViewModel> GetRandom(int count)
+        public IEnumerable<PropertyForSaleRentInListViewModel> GetByTags(IEnumerable<int> tagIds)
         {
-            List<PropertyForSaleRentViewModel> propertiesForSale = new List<PropertyForSaleRentViewModel>();
+            List<PropertyForSaleRentInListViewModel> propertiesForSale = new List<PropertyForSaleRentInListViewModel>();
+            foreach (int tagId in tagIds)
+            {
+                var apartments = this.apartmentRepository.All()
+                .Where(x => x.Tags.Any(t => t.Id == tagId))
+                .Select(x => new PropertyForSaleRentInListViewModel
+                {
+                    Id = x.Id,
+                    ImageUrl = x.Images.FirstOrDefault().Extension,
+                    Type = x.Type,
+                    CategoryName = nameof(Apartment),
+                }).ToList();
+
+                foreach (var apartment in apartments)
+                {
+                    propertiesForSale.Add(apartment);
+                }
+            }
+
+            foreach (int tagId in tagIds)
+            {
+                var houses = this.houseRepository.All()
+                .Where(x => x.Tags.Any(t => t.Id == tagId))
+                .Select(x => new PropertyForSaleRentInListViewModel
+                {
+                    Id = x.Id,
+                    ImageUrl = x.Images.FirstOrDefault().Extension,
+                    Type = x.Type,
+                    CategoryName = nameof(House),
+                }).ToList();
+
+                foreach (var house in houses)
+                {
+                    propertiesForSale.Add(house);
+                }
+            }
+
+            foreach (int tagId in tagIds)
+            {
+                var warehouses = this.warehouseRepository.All()
+                .Where(x => x.Tags.Any(t => t.Id == tagId))
+                .Select(x => new PropertyForSaleRentInListViewModel
+                {
+                    Id = x.Id,
+                    ImageUrl = x.Images.FirstOrDefault().Extension,
+                    Type = x.Type,
+                    CategoryName = nameof(Warehouse),
+                }).ToList();
+
+                foreach (var warehouse in warehouses)
+                {
+                    propertiesForSale.Add(warehouse);
+                }
+            }
+
+            foreach (int tagId in tagIds)
+            {
+                var fields = this.fieldRepository.All()
+                .Where(x => x.Tags.Any(t => t.Id == tagId))
+                .Select(x => new PropertyForSaleRentInListViewModel
+                {
+                    Id = x.Id,
+                    ImageUrl = x.Images.FirstOrDefault().Extension,
+                    Type = x.Type,
+                    CategoryName = nameof(Field),
+                }).ToList();
+
+                foreach (var field in fields)
+                {
+                    propertiesForSale.Add(field);
+                }
+            }
+
+            foreach (int tagId in tagIds)
+            {
+                var businesStores = this.businesStoreRepository.All()
+                .Where(x => x.Tags.Any(t => t.Id == tagId))
+                .Select(x => new PropertyForSaleRentInListViewModel
+                {
+                    Id = x.Id,
+                    ImageUrl = x.Images.FirstOrDefault().Extension,
+                    Type = x.Type,
+                    CategoryName = nameof(BusinesStore),
+                }).ToList();
+
+                foreach (var businesStore in businesStores)
+                {
+                    propertiesForSale.Add(businesStore);
+                }
+            }
+
+            return propertiesForSale;
+        }
+
+        public IEnumerable<PropertyForSaleRentInListViewModel> GetRandom(int count)
+        {
+            List<PropertyForSaleRentInListViewModel> propertiesForSale = new List<PropertyForSaleRentInListViewModel>();
 
             var apartments = this.apartmentRepository.All()
                 .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentViewModel
+                .Select(x => new PropertyForSaleRentInListViewModel
                 {
                     Id = x.Id,
                     ImageUrl = x.Images.FirstOrDefault().Extension,
@@ -204,7 +300,7 @@
             var houses = this.houseRepository.All()
                 .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentViewModel
+                .Select(x => new PropertyForSaleRentInListViewModel
                 {
                     Id = x.Id,
                     Type = x.Type,
@@ -215,7 +311,7 @@
             var warehouses = this.warehouseRepository.All()
                 .Where(x => x.ForSale == true)
                .OrderByDescending(x => x.Id)
-               .Select(x => new PropertyForSaleRentViewModel
+               .Select(x => new PropertyForSaleRentInListViewModel
                {
                    Id = x.Id,
                    Type = x.Type,
@@ -226,7 +322,7 @@
             var businesStores = this.businesStoreRepository.All()
                .Where(x => x.ForSale == true)
                .OrderByDescending(x => x.Id)
-               .Select(x => new PropertyForSaleRentViewModel
+               .Select(x => new PropertyForSaleRentInListViewModel
                {
                    Id = x.Id,
                    Type = x.Type,
@@ -236,7 +332,7 @@
 
             var fields = this.fieldRepository.All()
               .OrderByDescending(x => x.Id)
-              .Select(x => new PropertyForSaleRentViewModel
+              .Select(x => new PropertyForSaleRentInListViewModel
               {
                   Id = x.Id,
                   Type = x.Type,

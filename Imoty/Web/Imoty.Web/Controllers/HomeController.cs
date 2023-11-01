@@ -7,9 +7,7 @@
     using Imoty.Services.Data.Interfaces;
     using Imoty.Web.ViewModels;
     using Imoty.Web.ViewModels.Home;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
     public class HomeController : BaseController
     {
@@ -46,7 +44,7 @@
         {
             const int ItemsPerPage = 15;
 
-            var viewModel = new SalesRentsOrNBInListViewModel
+            var viewModel = new SalesRentsOrNBListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
@@ -60,7 +58,7 @@
         {
             const int ItemsPerPage = 15;
 
-            var viewModel = new SalesRentsOrNBInListViewModel
+            var viewModel = new SalesRentsOrNBListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
@@ -74,7 +72,7 @@
         {
             const int ItemsPerPage = 15;
 
-            var viewModel = new SalesRentsOrNBInListViewModel
+            var viewModel = new SalesRentsOrNBListViewModel
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,

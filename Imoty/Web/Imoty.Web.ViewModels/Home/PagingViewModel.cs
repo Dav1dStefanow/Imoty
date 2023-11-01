@@ -1,13 +1,9 @@
 ﻿namespace Imoty.Web.ViewModels.Home
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
 
-    public class SalesRentsOrNBInListViewModel
+    public class PagingViewModel
     {
-        public IEnumerable<PropertyForSaleRentViewModel> PropertiesForSale { get; set; }
-
         public int PageNumber { get; set; }
 
         public int PropertiesCount { get; set; }
