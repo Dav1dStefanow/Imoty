@@ -84,8 +84,19 @@
                             </li>
                             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
-                                <li class="nav-item">
-                                <a class="navbar-brand" asp-area="Administration" asp-controller="Towns" asp-action="Index">Towns Admin</a>
+                                <li class="has-children">
+                                    <a>Administration</a>
+                                    <ul class="dropdown">
+                                        <li class="nav-item">
+                                            <a class="navbar-brand" asp-area="Administration" asp-controller="Towns" asp-action="Index">Towns Admin</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="navbar-brand" asp-area="Administration" asp-controller="Districts" asp-action="Index">Districts Admin</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="navbar-brand" asp-area="Administration" asp-controller="Tags" asp-action="Index">Tags Admin</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             }
                             <li class="nav-item">

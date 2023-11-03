@@ -35,7 +35,7 @@
         {
             var model = new IndexViewModel()
             {
-                Properties = this.propertyService.GetRandom(10),
+                Properties = this.propertyService.GetRandom<PropertyForSaleRentInListViewModel>(10),
             };
             return this.View(model);
         }
@@ -48,8 +48,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
-                PropertiesCount = this.salesService.GetCount(),
-                PropertiesForSale = this.salesService.GetAllSales(id, ItemsPerPage),
+                PropertiesCount = this.salesService.GetCount<PropertyForSaleRentInListViewModel>(),
+                PropertiesForSale = this.salesService.GetAllSales<PropertyForSaleRentInListViewModel>(id, ItemsPerPage),
             };
             return this.View(viewModel);
         }
@@ -62,8 +62,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
-                PropertiesCount = this.rentsService.GetCount(),
-                PropertiesForSale = this.rentsService.GetAllSales(id, ItemsPerPage),
+                PropertiesCount = this.rentsService.GetCount<PropertyForSaleRentInListViewModel>(),
+                PropertiesForSale = this.rentsService.GetAllRents<PropertyForSaleRentInListViewModel>(id, ItemsPerPage),
             };
             return this.View(viewModel);
         }
@@ -76,8 +76,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
-                PropertiesCount = this.newBuildingsService.GetCount(),
-                PropertiesForSale = this.newBuildingsService.GetAllNewBuildings(id, ItemsPerPage),
+                PropertiesCount = this.newBuildingsService.GetCount<PropertyForSaleRentInListViewModel>(),
+                PropertiesForSale = this.newBuildingsService.GetAllNewBuildings<PropertyForSaleRentInListViewModel>(id, ItemsPerPage),
             };
             return this.View(viewModel);
         }

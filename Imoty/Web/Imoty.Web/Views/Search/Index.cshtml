@@ -7,7 +7,7 @@
     <h1>@ViewData["Title"]</h1>
 </div>
 
-<hr/>
+<hr />
 
 <div class="input-group">
     <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
@@ -15,11 +15,10 @@
 </div>
 
 <hr />
-
 <form asp-action="List" method="post">
-    @foreach(var tag in Model.Tags)
+    @foreach (var tag in Model.Tags)
     {
-        <input id="property_@tag.Id" type="checkbox" name="Tags" value="@tag.Id"/>
+        <input id="property_@tag.Id" type="checkbox" name="Tags" value="@tag.Id" />
         <label for="property_@tag.Id">@tag.Name</label>
     }
     <button type="submit" class="btn btn-outline-primary">search</button>

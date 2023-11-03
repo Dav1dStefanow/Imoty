@@ -6,8 +6,8 @@
 
     public interface ISalesService
     {
-        IEnumerable<PropertyForSaleRentInListViewModel> GetAllSales(int page, int itemsNumber = 15);
+        IEnumerable<T> GetAllSales<T>(int page, int itemsNumber = 15);
 
-        int GetCount();
+        int GetCount<T>();
     }
 }

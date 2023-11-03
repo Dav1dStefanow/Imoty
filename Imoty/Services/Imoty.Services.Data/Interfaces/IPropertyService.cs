@@ -8,8 +8,8 @@
     {
         SinglePropertyViewModel GetByIdAndCategory(int id, string category);
 
-        IEnumerable<PropertyForSaleRentInListViewModel> GetRandom(int count);
+        IEnumerable<T> GetRandom<T>(int count);
 
-        IEnumerable<PropertyForSaleRentInListViewModel> GetByTags(IEnumerable<int> tagIds);
+        IEnumerable<T> GetByTags<T>(IEnumerable<int> tagIds);
     }
 }

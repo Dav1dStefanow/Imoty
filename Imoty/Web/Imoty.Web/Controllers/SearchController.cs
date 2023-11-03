@@ -1,6 +1,7 @@
 ﻿namespace Imoty.Web.Controllers
 {
     using Imoty.Services.Data.Interfaces;
+    using Imoty.Web.ViewModels.Home;
     using Imoty.Web.ViewModels.Search;
     using Microsoft.AspNetCore.Mvc;
 
@@ -32,7 +33,7 @@
         {
            var viewModel = new ListViewModel
            {
-                Properties = this.propertyService.GetByTags(model.Tags),
+                Properties = this.propertyService.GetByTags<PropertyForSaleRentInListViewModel>(model.Tags),
            };
 
            return this.View(viewModel);

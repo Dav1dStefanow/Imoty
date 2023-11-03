@@ -6,6 +6,7 @@
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
     using Imoty.Services.Data.Interfaces;
+    using Imoty.Services.Mapping;
     using Imoty.Web.ViewModels.Home;
 
     public class SalesService : ISalesService
@@ -30,63 +31,32 @@
             this.fieldsRepository = fieldsRepository;
         }
 
-        public IEnumerable<PropertyForSaleRentInListViewModel> GetAllSales(int page, int itemsNumber = 15)
+        public IEnumerable<T> GetAllSales<T>(int page, int itemsNumber = 15)
         {
-            List<PropertyForSaleRentInListViewModel> propertiesForSale = new List<PropertyForSaleRentInListViewModel>();
+            List<T> propertiesForSale = new List<T>();
 
             var apartments = this.apartmentsRepository.All()
                 .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentInListViewModel
-                {
-                    Id = x.Id,
-                    ImageUrl = x.Images.FirstOrDefault().Extension,
-                    Type = x.Type,
-                    CategoryName = nameof(Apartment),
-                }).ToList();
+               .To<T>().ToList();
 
             var houses = this.housesRepository.All()
                 .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentInListViewModel
-                {
-                    Id = x.Id,
-                    Type = x.Type,
-                    ImageUrl = x.Images.FirstOrDefault().Extension,
-                    CategoryName = nameof(House),
-                }).ToList();
+                .To<T>().ToList();
 
             var warehouses = this.warehousesRepository.All()
                 .Where(x => x.ForSale == true)
                .OrderByDescending(x => x.Id)
-               .Select(x => new PropertyForSaleRentInListViewModel
-               {
-                   Id = x.Id,
-                   Type = x.Type,
-                   ImageUrl = x.Images.FirstOrDefault().Extension,
-                   CategoryName = nameof(Warehouse),
-               }).ToList();
+              .To<T>().ToList();
 
             var businesStores = this.businesStoresRepository.All()
                .Where(x => x.ForSale == true)
-               .OrderByDescending(x => x.Id)
-               .Select(x => new PropertyForSaleRentInListViewModel
-               {
-                   Id = x.Id,
-                   Type = x.Type,
-                   ImageUrl = x.Images.FirstOrDefault().Extension,
-                   CategoryName = nameof(BusinesStore),
-               }).ToList();
+              .To<T>().ToList();
 
             var fields = this.fieldsRepository.All()
               .OrderByDescending(x => x.Id)
-              .Select(x => new PropertyForSaleRentInListViewModel
-              {
-                  Id = x.Id,
-                  Type = x.Type,
-                  ImageUrl = x.Images.FirstOrDefault().Extension,
-                  CategoryName = nameof(Field),
-              }).ToList();
+              .To<T>().ToList();
 
             foreach (var field in fields)
             {
@@ -113,77 +83,36 @@
                 propertiesForSale.Add(warehouse);
             }
 
-            var allProps = propertiesForSale
-                .OrderByDescending(x => x.Id)
-                .Skip((page - 1) * itemsNumber).Take(itemsNumber)
-                .Select(x => new PropertyForSaleRentInListViewModel
-                {
-                    ImageUrl = x.ImageUrl,
-                    CategoryName = x.CategoryName,
-                    Type = x.Type,
-                    Id = x.Id,
-                })
-                .ToList();
-
-            return allProps;
+            return propertiesForSale;
         }
 
-        public int GetCount()
+        public int GetCount<T>()
         {
-            List<PropertyForSaleRentInListViewModel> propertiesForSale = new List<PropertyForSaleRentInListViewModel>();
+            List<T> propertiesForSale = new List<T>();
 
             var apartments = this.apartmentsRepository.All()
                 .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentInListViewModel
-                {
-                    Id = x.Id,
-                    ImageUrl = x.Images.FirstOrDefault().Extension,
-                    Type = x.Type,
-                    CategoryName = nameof(Apartment),
-                }).ToList();
+                .To<T>().ToList();
 
             var houses = this.housesRepository.All()
                 .Where(x => x.ForSale == true)
                 .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentInListViewModel
-                {
-                    Id = x.Id,
-                    ImageUrl = x.Images.FirstOrDefault().Extension,
-                    CategoryName = nameof(House),
-                }).ToList();
+                .To<T>().ToList();
 
             var warehouses = this.warehousesRepository.All()
                 .Where(x => x.ForSale == true)
                .OrderByDescending(x => x.Id)
-               .Select(x => new PropertyForSaleRentInListViewModel
-               {
-                   Id = x.Id,
-                   Type = x.Type,
-                   ImageUrl = x.Images.FirstOrDefault().Extension,
-                   CategoryName = nameof(Warehouse),
-               }).ToList();
+               .To<T>().ToList();
 
             var businesStores = this.businesStoresRepository.All()
                .Where(x => x.ForSale == true)
                .OrderByDescending(x => x.Id)
-               .Select(x => new PropertyForSaleRentInListViewModel
-               {
-                   Id = x.Id,
-                   Type = x.Type,
-                   ImageUrl = x.Images.FirstOrDefault().Extension,
-                   CategoryName = nameof(BusinesStore),
-               }).ToList();
+              .To<T>().ToList();
 
             var fields = this.fieldsRepository.All()
               .OrderByDescending(x => x.Id)
-              .Select(x => new PropertyForSaleRentInListViewModel
-              {
-                  Id = x.Id,
-                  Type = x.Type,
-                  ImageUrl = x.Images.FirstOrDefault().Extension,
-                  CategoryName = nameof(Field),
-              }).ToList();
+              .To<T>().ToList();
 
             foreach (var field in fields)
             {
@@ -210,18 +139,7 @@
                 propertiesForSale.Add(warehouse);
             }
 
-            var allProps = propertiesForSale
-                .OrderByDescending(x => x.Id)
-                .Select(x => new PropertyForSaleRentInListViewModel
-                {
-                    ImageUrl = x.ImageUrl,
-                    CategoryName = x.CategoryName,
-                    Type = x.Type,
-                    Id = x.Id,
-                })
-                .ToList();
-
-            return allProps.Count();
+            return propertiesForSale.Count();
         }
     }
 }
