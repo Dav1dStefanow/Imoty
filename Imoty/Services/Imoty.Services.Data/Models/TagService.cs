@@ -7,7 +7,6 @@
     using Imoty.Data.Models;
     using Imoty.Services.Data.Interfaces;
     using Imoty.Services.Mapping;
-    using Imoty.Web.ViewModels.Search;
 
     public class TagService : ITagService
     {
@@ -20,7 +19,6 @@
 
         public IEnumerable<T> GetAllTags<T>()
         {
-
             return this.tagsRepository.All().To<T>().ToList();
         }
     }

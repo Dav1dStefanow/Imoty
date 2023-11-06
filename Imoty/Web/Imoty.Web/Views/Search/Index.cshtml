@@ -8,18 +8,59 @@
 </div>
 
 <hr />
-
-<div class="input-group">
-    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-    <button type="submit" class="btn btn-outline-primary">search</button>
-</div>
-
-<hr />
 <form asp-action="List" method="post">
+    <div class="input-group">
+        <input type="search" class="form-control rounded" name="SearchInput" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <button type="submit" class="btn btn-outline-primary">search</button>
+    </div>
+
+    @*<hr />
+    <h4>Towns</h4>
+    @foreach (var town in Model.Towns)
+    {
+        <input id="property_@town.Id" type="checkbox" name="Towns" value="@town.Id" class="checkbox-group" />
+        <label for="property_@town.Id">@town.Name</label>
+    }
+
+    <hr />
+    <h4>Districts</h4>
+    @foreach (var dis in Model.Districts)
+    {
+        <input id="property_@dis.Id" type="checkbox" name="Districts" value="@dis.Id" class="checkbox-groupp" />
+        <label for="property_@dis.Id">@dis.Name</label>
+    }*@
+
+    <hr />
+    <h4>Tags</h4>
     @foreach (var tag in Model.Tags)
     {
         <input id="property_@tag.Id" type="checkbox" name="Tags" value="@tag.Id" />
         <label for="property_@tag.Id">@tag.Name</label>
     }
-    <button type="submit" class="btn btn-outline-primary">search</button>
 </form>
+
+@*@section Scripts{
+    <script>
+        $(document).ready(function () {
+            function handleCheckboxGroup(checkbox) {
+                $('.checkbox-group').not(checkbox).prop('checked', false);
+            }
+
+            $('.checkbox-group').change(function () {
+                handleCheckboxGroup(this);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            function handleCheckboxGroup(checkbox) {
+                $('.checkbox-groupp').not(checkbox).prop('checked', false);
+            }
+
+            $('.checkbox-groupp').change(function () {
+                handleCheckboxGroup(this);
+            });
+        });
+    </script>
+}*@

@@ -19,7 +19,7 @@
             <div class="card-body">
                 <h5 class="card-title">@property.Type</h5>
                 <p class="card-text">@property.CategoryName</p>
-                <a class="btn btn-primary" asp-action="ViewProperty" asp-route-id="@property.Id" asp-route-category="@property.CategoryName">View the @property.CategoryName</a>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="ViewProperty" asp-route-id="@property.Id" asp-route-category="@property.CategoryName">View the @property.CategoryName</a>
             </div>
         </div>
     }

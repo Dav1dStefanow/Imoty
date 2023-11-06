@@ -187,58 +187,68 @@
             return singleProperty;
         }
 
-        public IEnumerable<T> GetByTags<T>(IEnumerable<int> tagIds)
+        public IEnumerable<T> GetByTagsAndType<T>(IEnumerable<int> tagIds, string searchInput)
         {
-            List<T> propertiesForSale = new List<T>();
-            foreach (int tagId in tagIds)
+            var buseinesstoreQuery = this.businesStoreRepository.All().Where(b => b.Type.Contains(searchInput)).AsQueryable();
+            var warehouseQuery = this.warehouseRepository.All().Where(b => b.Type.Contains(searchInput)).AsQueryable();
+            var apartmentQuery = this.apartmentRepository.All().Where(b => b.Type.Contains(searchInput)).AsQueryable();
+            var houseQuery = this.houseRepository.All().Where(b => b.Type.Contains(searchInput)).AsQueryable();
+            var fieldQuery = this.fieldRepository.All().Where(b => b.Type.Contains(searchInput)).AsQueryable();
+
+            foreach (var id in tagIds)
             {
-                var apartments = this.apartmentRepository.All()
-                .Where(x => x.Tags.Any(t => t.Id == tagId))
-                .To<T>().ToList();
-
-                foreach (var apartment in apartments)
-                {
-                    propertiesForSale.Add(apartment);
-                }
-
-                var houses = this.houseRepository.All()
-                .Where(x => x.Tags.Any(t => t.Id == tagId))
-                .To<T>().ToList();
-
-                foreach (var house in houses)
-                {
-                    propertiesForSale.Add(house);
-                }
-
-                var warehouses = this.warehouseRepository.All()
-                .Where(x => x.Tags.Any(t => t.Id == tagId))
-                .To<T>().ToList();
-
-                foreach (var warehouse in warehouses)
-                {
-                    propertiesForSale.Add(warehouse);
-                }
-
-                var fields = this.fieldRepository.All()
-                .Where(x => x.Tags.Any(t => t.Id == tagId))
-                .To<T>().ToList();
-
-                foreach (var field in fields)
-                {
-                    propertiesForSale.Add(field);
-                }
-
-                var businesStores = this.businesStoreRepository.All()
-                .Where(x => x.Tags.Any(t => t.Id == tagId))
-                .To<T>().ToList();
-
-                foreach (var businesStore in businesStores)
-                {
-                    propertiesForSale.Add(businesStore);
-                }
+                apartmentQuery = apartmentQuery.Where(a => a.Tags.Any(t => t.Id == id));
+                buseinesstoreQuery = buseinesstoreQuery.Where(a => a.Tags.Any(t => t.Id == id));
+                warehouseQuery = warehouseQuery.Where(a => a.Tags.Any(t => t.Id == id));
+                houseQuery = houseQuery.Where(a => a.Tags.Any(t => t.Id == id));
+                fieldQuery = fieldQuery.Where(a => a.Tags.Any(t => t.Id == id));
             }
 
-            return propertiesForSale;
+            //foreach (var id in townIds)
+            //{
+            //    apartmentQuery = apartmentQuery.Where(a => a.TownId == id);
+            //    buseinesstoreQuery = buseinesstoreQuery.Where(a => a.TownId == id);
+            //    warehouseQuery = warehouseQuery.Where(a => a.TownId == id);
+            //    houseQuery = houseQuery.Where(a => a.TownId == id);
+            //    fieldQuery = fieldQuery.Where(a => a.TownId == id);
+            //}
+
+            //foreach (var id in districtIds)
+            //{
+            //    apartmentQuery = apartmentQuery.Where(a => a.DistrictId == id);
+            //    buseinesstoreQuery = buseinesstoreQuery.Where(a => a.DistrictId == id);
+            //    warehouseQuery = warehouseQuery.Where(a => a.DistrictId == id);
+            //    houseQuery = houseQuery.Where(a => a.DistrictId == id);
+            //    fieldQuery = fieldQuery.Where(a => a.DistrictId == id);
+            //}
+
+            var apartmentlist = apartmentQuery.To<T>().ToList();
+            var houselist = houseQuery.To<T>().ToList();
+            var warehouselist = warehouseQuery.To<T>().ToList();
+            var fieldlist = fieldQuery.To<T>().ToList();
+            var businesstorelist = buseinesstoreQuery.To<T>().ToList();
+
+            foreach (var prop in houselist)
+            {
+                apartmentlist.Add(prop);
+            }
+
+            foreach (var prop in warehouselist)
+            {
+                apartmentlist.Add(prop);
+            }
+
+            foreach (var prop in fieldlist)
+            {
+                apartmentlist.Add(prop);
+            }
+
+            foreach (var prop in businesstorelist)
+            {
+                apartmentlist.Add(prop);
+            }
+
+            return apartmentQuery.To<T>().ToList();
         }
 
         public IEnumerable<T> GetRandom<T>(int count)

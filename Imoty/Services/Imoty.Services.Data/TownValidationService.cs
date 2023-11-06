@@ -1,10 +1,11 @@
 ﻿namespace Imoty.Services.Data
 {
-    using System.Linq;
-
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
+    using Imoty.Services.Mapping;
     using Imoty.Web.ViewModels.AddAd;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class TownValidationService
     {
@@ -84,6 +85,11 @@
             Town town = this.townRepository.AllAsNoTrackingWithDeleted().FirstOrDefault(c => c.Name == viewModel.Town);
 
             return town;
+        }
+
+        public IEnumerable<T> GetAllTowns<T>()
+        {
+            return this.townRepository.All().To<T>().ToList();
         }
     }
 }

@@ -1,9 +1,12 @@
 ﻿namespace Imoty.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using Imoty.Data.Common.Repositories;
     using Imoty.Data.Models;
+    using Imoty.Services.Data.Interfaces;
+    using Imoty.Services.Mapping;
     using Imoty.Web.ViewModels.AddAd;
 
     public class DistrictValidationService
@@ -83,6 +86,11 @@
             District district = this.districtRepository.AllAsNoTrackingWithDeleted().FirstOrDefault(c => c.Name == viewModel.District);
 
             return district;
+        }
+
+        public IEnumerable<T> GetAllDistricts<T>()
+        {
+            return this.districtRepository.All().To<T>().ToList();
         }
     }
 }

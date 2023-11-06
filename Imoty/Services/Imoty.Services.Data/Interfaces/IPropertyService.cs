@@ -10,6 +10,6 @@
 
         IEnumerable<T> GetRandom<T>(int count);
 
-        IEnumerable<T> GetByTags<T>(IEnumerable<int> tagIds);
+        IEnumerable<T> GetByTagsAndType<T>(IEnumerable<int> tagIds, string serachInput);
     }
 }
