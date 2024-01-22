@@ -10,6 +10,9 @@ Imoty is an Imoti.bg like application based on ASP.NET Core MVC architecture. Th
 * [ASP.NET Core WebAPI 5.0](https://github.com/dotnet/aspnetcore)
 * [Entity Framework Core 5.0](https://github.com/dotnet/efcore)
 * [MyTested.AspNetCore.Mvc](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc)
+* [AutoMapper](https://github.com/AutoMapper/AutoMapper)
+* [Bootstrap](https://github.com/twbs/bootstrap)
+* [Bootstrap Icons](https://github.com/twbs/icons)
 
  #### Using [ASP.NET-MVC-Template](https://github.com/NikolayIT/ASP.NET-MVC-Template) developed by:
 - [Nikolay Kostov](https://github.com/NikolayIT)
