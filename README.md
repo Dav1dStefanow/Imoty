@@ -17,7 +17,7 @@ Imoty is an Imoti.bg like application based on ASP.NET Core MVC architecture. Th
 ## :framed_picture: Screenshots
 
 ### Apartment Page
-  ![ApartmentPage](./localhost_44319_Home_ViewProperty_25_category=Apartment.png)
+  ![ApartmentPage](./img/localhost_44319_Home_ViewProperty_25_category=Apartment.png)
 
  #### Using [ASP.NET-MVC-Template](https://github.com/NikolayIT/ASP.NET-MVC-Template) developed by:
 - [Nikolay Kostov](https://github.com/NikolayIT)
